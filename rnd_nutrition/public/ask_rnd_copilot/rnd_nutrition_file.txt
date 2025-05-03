@@ -1,0 +1,2801 @@
+Hi ! let's talk about erpnext, I want to make an app or module to run like CRM .. this is frappe, somthing for  Research and Development . Do you have idea how do we start with this?
+They develop productos with high grade of natural ingredients, something to add at animal nutrition food, or human food. the concept is generate products with 45 to 75 ingredients, almost the contain of aloe vera powder but fortified .
+In some moment they test with plants and animals to get the information about the process, for example a cover to avoid that the birds eat the semillas, this cover has effect ultraviolet to avoid the birds see the covered semilla.
+other product is fortified adition to add to the farmer animals.. to have better health on them.
+Developing an ERPNext Module for Research & Development in Nutrition Products
+It sounds like you want to create a specialized CRM-like module in ERPNext to manage Research and Development processes for natural ingredient-based products. Here's how I would approach this:
+Understanding Your Requirements
+Your company develops complex products with:
+45-75 natural ingredients
+Applications in animal nutrition and human food
+Product testing phases with plants and animals
+Specialized formulations (like UV-protective seed coatings)
+Recommended Approach for ERPNext Customization
+1. Start with Standard CRM Features
+Since you mentioned CRM-like functionality, begin with ERPNext's built-in CRM module and extend it:
+Leads/Opportunities: Track potential research partnerships
+Contacts: Manage relationships with research institutions
+Projects: Structure your R&D initiatives
+2. Create Custom Doctypes
+You'll need several custom doctypes:
+Product Development
+Formulation: Track ingredient combinations (45-75 ingredients per product)
+Ingredient Library: Database of all natural ingredients with properties
+Product Variants: Different versions of formulations
+Research Management
+Test Protocols: Standard procedures for plant/animal testing
+Trial Results: Document outcomes of field tests (e.g., bird behavior with coated seeds)
+Research Findings: Store and categorize discoveries
+Regulatory Compliance
+Certification Tracking: For food/nutrition standards
+Safety Data: Ingredient safety profiles
+3. Development Steps
+Install Frappe Bench:
+bash
+Copy
+Download
+bench init [frappe-bench] && cd [frappe-bench]
+bench new-site [site-name]
+Create your custom app:
+bash
+Copy
+Download
+bench new-app rnd_nutrition
+Define your custom doctypes in /rnd_nutrition/rnd_nutrition/doctype/
+Example for a Formulation doctype:
+python
+Copy
+Download
+from frappe import _
+
+def get_data():
+	return {
+		"fieldname": "formulation",
+		"transactions": [
+			{"label": _("Trials"), "items": ["Animal Trial", "Plant Trial"]},
+			{"label": _("Ingredients"), "items": ["Formulation Ingredient"]}
+		]
+	}
+Create custom forms for:
+Ingredient management (with properties like origin, safety data)
+Formulation builder (with ability to add 45-75 ingredients)
+Trial tracking (with UV coating effectiveness metrics)
+4. Key Features to Implement
+Formulation Management:
+Matrix of ingredients with percentages
+Cost calculation per formulation
+Nutritional profile generator
+Trial Tracking:
+Animal response metrics (e.g., health improvement %)
+Plant growth data
+Bird deterrent effectiveness for seed coatings
+Document Management:
+Attach research papers
+Lab results storage
+Regulatory documents
+BOM Integration:
+Connect formulations to eventual Bill of Materials
+Scale up from lab to production quantities
+5. Integration Points
+Inventory: Track rare natural ingredients
+Manufacturing: Scale successful formulations
+Quality: Implement testing protocols
+Projects: Manage research timelines
+Technical Considerations
+Performance: With 45-75 ingredients per product, optimize database queries
+Custom Reports: Develop specialized analytics for research data
+Workflows: Automate approval processes for formulations
+Versioning: Track changes to formulations over time
+Would you like me to elaborate on any specific aspect of this approach, or would you prefer to discuss particular technical implementation details?
+tell me more detailed how to be deep inside the module generation on frappe erpnext.. 
+bench new-app rnd_nutrition
+what is going there , the files structure inside the modulke
+how can I work with them
+Deep Dive into ERPNext/Frappe Module Development
+Let me walk you through the detailed structure and development process for your rnd_nutrition module.
+1. Creating the App Structure
+When you run bench new-app rnd_nutrition, Frappe creates this basic structure:
+Copy
+Download
+rnd_nutrition/
+├── rnd_nutrition/
+│   ├── __init__.py
+│   ├── config/                  # Desktop icons, module setup
+│   │   ├── desktop.py
+│   │   └── __init__.py
+│   ├── doctype/                 # Your custom document types
+│   │   └── __init__.py
+│   ├── hooks.py                 # App lifecycle hooks
+│   ├── patches.py               # Data migration scripts
+│   ├── templates/               # Jinja2 templates
+│   │   └── __init__.py
+│   └── www/                     # Web assets
+│       └── __init__.py
+├── license.txt
+├── MANIFEST.in
+├── README.md
+└── setup.py
+2. Core Files Explained
+hooks.py
+This defines app behavior and integration points:
+python
+Copy
+Download
+from frappe import _
+
+app_name = "rnd_nutrition"
+app_title = "R&D Nutrition"
+app_publisher = "Your Company"
+app_description = "Research and Development for Nutritional Products"
+app_icon = "fa-flask"
+app_color = "#4CAF50"
+app_email = "contact@yourcompany.com"
+app_license = "GPLv3"
+
+# Includes in <head>
+app_include_css = ["/assets/rnd_nutrition/css/rnd.css"]
+app_include_js = ["/assets/rnd_nutrition/js/rnd.js"]
+
+# DocType Class Override
+# override_doctype_class = {
+#     "Item": "rnd_nutrition.overrides.item.CustomItem"
+# }
+
+# Website user home page
+# website_user_home_page = "rnd_dashboard"
+
+# Installation
+after_install = "rnd_nutrition.setup.install.after_install"
+doctype/ Structure
+For each document type (like Formulation, Ingredient), you'll create:
+Copy
+Download
+doctype/
+├── formulation/                  # Doctype name in lowercase
+│   ├── formulation.json          # Meta data
+│   ├── formulation.py            # Server-side logic
+│   ├── formulation.js            # Client-side logic
+│   ├── formulation_list.js       # List view logic
+│   ├── formulation_list.html     # List view template
+│   ├── formulation_calendar.js   # If calendar view needed
+│   ├── test_formulation.py       # Unit tests
+│   └── __init__.py
+3. Creating a Custom Doctype (Formulation Example)
+Step 1: Create the JSON definition
+formulation.json defines fields and properties:
+json
+Copy
+Download
+{
+  "doctype": "DocType",
+  "module": "R&D Nutrition",
+  "name": "Formulation",
+  "is_submittable": 1,
+  "fields": [
+    {
+      "fieldname": "formulation_name",
+      "label": "Formulation Name",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "purpose",
+      "label": "Intended Purpose",
+      "fieldtype": "Select",
+      "options": "Animal Nutrition\nHuman Food\nAgricultural Application",
+      "reqd": 1
+    },
+    {
+      "fieldname": "target_species",
+      "label": "Target Species",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "ingredients_section",
+      "label": "Ingredients",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "ingredients",
+      "label": "Ingredients Table",
+      "fieldtype": "Table",
+      "options": "Formulation Ingredient",
+      "reqd": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "R&D Manager",
+      "permlevel": 0,
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1
+    }
+  ]
+}
+Step 2: Add server-side logic
+formulation.py contains Python logic:
+python
+Copy
+Download
+import frappe
+from frappe.model.document import Document
+
+class Formulation(Document):
+    def validate(self):
+        self.validate_ingredient_percentages()
+        self.calculate_nutritional_profile()
+    
+    def validate_ingredient_percentages(self):
+        total = sum(float(row.percentage) for row in self.ingredients)
+        if abs(total - 100) > 0.01:
+            frappe.throw("Ingredient percentages must sum to 100%")
+    
+    def calculate_nutritional_profile(self):
+        # Complex calculation based on ingredients
+        pass
+        
+    def on_submit(self):
+        self.create_bom_if_complete()
+        
+    def create_bom_if_complete(self):
+        if self.status == "Approved":
+            bom = frappe.new_doc("BOM")
+            # ... populate BOM from formulation
+            bom.insert()
+Step 3: Client-side JavaScript
+formulation.js handles UI interactions:
+javascript
+Copy
+Download
+frappe.ui.form.on('Formulation', {
+    refresh: function(frm) {
+        // Add custom button to create trial
+        if(!frm.is_new()) {
+            frm.add_custom_button(__('Create Animal Trial'), function() {
+                frappe.model.open_mapped_doc({
+                    method: "rnd_nutrition.rnd_nutrition.doctype.formulation.formulation.make_animal_trial",
+                    frm: frm
+                });
+            });
+        }
+    },
+    
+    purpose: function(frm) {
+        // Show/hide fields based on purpose
+        if(frm.doc.purpose === "Animal Nutrition") {
+            frm.set_df_property('target_species', 'reqd', 1);
+        } else {
+            frm.set_df_property('target_species', 'reqd', 0);
+        }
+    }
+});
+4. Creating Related Doctypes
+For the ingredients table, create formulation_ingredient.json:
+json
+Copy
+Download
+{
+  "doctype": "DocType",
+  "module": "R&D Nutrition",
+  "name": "Formulation Ingredient",
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "ingredient",
+      "label": "Ingredient",
+      "fieldtype": "Link",
+      "options": "Item",
+      "reqd": 1
+    },
+    {
+      "fieldname": "percentage",
+      "label": "Percentage",
+      "fieldtype": "Float",
+      "reqd": 1
+    },
+    {
+      "fieldname": "characteristics",
+      "label": "Key Characteristics",
+      "fieldtype": "Small Text"
+    }
+  ]
+}
+5. Adding Custom Views
+Create formulation_list.js for custom list view:
+javascript
+Copy
+Download
+frappe.listview_settings['Formulation'] = {
+    add_fields: ["status", "purpose"],
+    get_indicator: function(doc) {
+        if(doc.status=="Draft") {
+            return [__("Draft"), "orange"];
+        } else if(doc.status=="Under Testing") {
+            return [__("Under Testing"), "blue"];
+        } else if(doc.status=="Approved") {
+            return [__("Approved"), "green"];
+        }
+    },
+    filters: [
+        ["status", "!=", "Archived"]
+    ]
+};
+6. Adding Custom Reports
+Create nutritional_analysis.py:
+python
+Copy
+Download
+from __future__ import unicode_literals
+import frappe
+from frappe import _
+
+def execute(filters=None):
+    columns = get_columns()
+    data = get_data(filters)
+    return columns, data
+
+def get_columns():
+    return [
+        _("Formulation") + ":Link/Formulation:150",
+        _("Purpose") + "::120",
+        _("Protein Content") + "::100",
+        _("Vitamin Score") + "::100",
+        _("Status") + "::100"
+    ]
+
+def get_data(filters):
+    return frappe.db.sql("""
+        SELECT 
+            f.name, f.purpose, 
+            SUM(i.protein_content * fi.percentage)/100 as protein_content,
+            f.status
+        FROM `tabFormulation` f
+        JOIN `tabFormulation Ingredient` fi ON fi.parent = f.name
+        JOIN `tabItem` i ON i.name = fi.ingredient
+        WHERE f.docstatus = 1
+        GROUP BY f.name
+    """, as_list=1)
+7. Development Workflow
+Create doctypes using the JSON structure
+Add business logic in the Python files
+Enhance UI with JavaScript
+Test locally:
+bash
+Copy
+Download
+bench start
+Build for production:
+bash
+Copy
+Download
+bench build
+Create patches for data migrations if needed in patches.py
+8. Advanced Customizations
+For your complex requirements:
+Ingredient Matrix View:
+Create a custom page using frappe.views.BaseList
+Implement drag-and-drop for formulation adjustments
+Trial Data Visualization:
+Use Chart.js for showing animal health improvements
+Create dashboards with trial metrics
+Formulation Versioning:
+Implement a version control system for formulations
+Add diff functionality to compare versions
+Would you like me to elaborate on any specific part of this structure or workflow? Maybe focus on a particular aspect like the ingredient management system or trial tracking implementation?
+could you generate for me the entire concept on .json files or a .py ? is it possible include workflows and project tasks
+Complete R&D Nutrition Module for ERPNext
+I'll provide you with a comprehensive set of files for your R&D Nutrition module, including workflows and project task integration. Let's structure this as a complete package.
+1. Module Structure Overview
+Copy
+Download
+rnd_nutrition/
+├── __init__.py
+├── hooks.py
+├── patches.py
+├── config/
+│   ├── desktop.py
+│   └── __init__.py
+├── doctype/
+│   ├── formulation/
+│   │   ├── formulation.json
+│   │   ├── formulation.py
+│   │   └── formulation.js
+│   ├── formulation_ingredient/
+│   │   └── formulation_ingredient.json
+│   ├── animal_trial/
+│   │   ├── animal_trial.json
+│   │   ├── animal_trial.py
+│   │   └── animal_trial.js
+│   ├── plant_trial/
+│   │   ├── plant_trial.json
+│   │   ├── plant_trial.py
+│   │   └── plant_trial.js
+│   └── research_project/
+│       ├── research_project.json
+│       ├── research_project.py
+│       └── research_project.js
+├── templates/
+│   └── pages/
+│       └── rnd_dashboard.html
+└── www/
+    ├── css/
+    │   └── rnd.css
+    └── js/
+        └── rnd.js
+2. Core Files Implementation
+hooks.py
+python
+Copy
+Download
+from frappe import _
+
+app_name = "rnd_nutrition"
+app_title = "R&D Nutrition"
+app_publisher = "Your Company"
+app_description = "Research and Development for Nutritional Products"
+app_icon = "fa-flask"
+app_color = "#4CAF50"
+app_email = "contact@yourcompany.com"
+app_license = "GPLv3"
+app_version = "0.1.0"
+
+# Includes in <head>
+app_include_css = ["/assets/rnd_nutrition/css/rnd.css"]
+app_include_js = ["/assets/rnd_nutrition/js/rnd.js"]
+
+# Website user home page
+website_user_home_page = "rnd_dashboard"
+
+# Installation
+after_install = "rnd_nutrition.setup.install.after_install"
+
+# Fixtures (for custom fields, etc)
+fixtures = [
+    {"dt": "Workflow", "filters": [["name", "like", "RND%"]]},
+    {"dt": "Custom Field", "filters": [["dt", "in", ["Item", "Project", "Task"]]]},
+    {"dt": "Property Setter", "filters": [["doc_type", "in", ["Item", "Project"]]]}
+]
+
+# DocType Class Override
+override_doctype_class = {
+    "Project": "rnd_nutrition.overrides.project.CustomProject"
+}
+doctype/formulation/formulation.json
+json
+Copy
+Download
+{
+  "doctype": "DocType",
+  "module": "R&D Nutrition",
+  "name": "Formulation",
+  "is_submittable": 1,
+  "track_changes": 1,
+  "naming_rule": "By fieldname",
+  "autoname": "field:formulation_name",
+  "fields": [
+    {
+      "fieldname": "formulation_name",
+      "label": "Formulation Name",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "formulation_code",
+      "label": "Formulation Code",
+      "fieldtype": "Data",
+      "read_only": 1,
+      "hidden": 1
+    },
+    {
+      "fieldname": "purpose",
+      "label": "Intended Purpose",
+      "fieldtype": "Select",
+      "options": "Animal Nutrition\nHuman Food\nAgricultural Application",
+      "reqd": 1
+    },
+    {
+      "fieldname": "target_species",
+      "label": "Target Species",
+      "fieldtype": "Data",
+      "depends_on": "eval:doc.purpose == 'Animal Nutrition'"
+    },
+    {
+      "fieldname": "ingredients_section",
+      "label": "Ingredients",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "ingredients",
+      "label": "Ingredients Table",
+      "fieldtype": "Table",
+      "options": "Formulation Ingredient",
+      "reqd": 1
+    },
+    {
+      "fieldname": "nutritional_profile_section",
+      "label": "Nutritional Profile",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "protein_content",
+      "label": "Protein Content (%)",
+      "fieldtype": "Float",
+      "read_only": 1
+    },
+    {
+      "fieldname": "vitamin_score",
+      "label": "Vitamin Score",
+      "fieldtype": "Float",
+      "read_only": 1
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "Draft\nUnder Testing\nApproved\nRejected",
+      "default": "Draft"
+    },
+    {
+      "fieldname": "project",
+      "label": "Research Project",
+      "fieldtype": "Link",
+      "options": "Research Project"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "R&D Manager",
+      "permlevel": 0,
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1
+    },
+    {
+      "role": "R&D Scientist",
+      "permlevel": 0,
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 0,
+      "submit": 0,
+      "cancel": 0,
+      "amend": 0
+    }
+  ]
+}
+doctype/research_project/research_project.json
+json
+Copy
+Download
+{
+  "doctype": "DocType",
+  "module": "R&D Nutrition",
+  "name": "Research Project",
+  "is_submittable": 1,
+  "track_changes": 1,
+  "fields": [
+    {
+      "fieldname": "project_name",
+      "label": "Project Name",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "project_code",
+      "label": "Project Code",
+      "fieldtype": "Data",
+      "read_only": 1
+    },
+    {
+      "fieldname": "start_date",
+      "label": "Start Date",
+      "fieldtype": "Date",
+      "reqd": 1
+    },
+    {
+      "fieldname": "end_date",
+      "label": "End Date",
+      "fieldtype": "Date"
+    },
+    {
+      "fieldname": "research_goal",
+      "label": "Research Goal",
+      "fieldtype": "Text",
+      "reqd": 1
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "Planning\nActive\nOn Hold\nCompleted\nCancelled",
+      "default": "Planning"
+    },
+    {
+      "fieldname": "formulations",
+      "label": "Formulations",
+      "fieldtype": "Table",
+      "options": "Formulation Project Link"
+    },
+    {
+      "fieldname": "tasks",
+      "label": "Tasks",
+      "fieldtype": "Table",
+      "options": "Project Task",
+      "hidden": 1
+    },
+    {
+      "fieldname": "gantt_chart",
+      "label": "Project Timeline",
+      "fieldtype": "HTML"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "R&D Manager",
+      "permlevel": 0,
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1
+    }
+  ]
+}
+Workflow Definition (fixtures/workflow_rnd_formulation.json)
+json
+Copy
+Download
+[
+  {
+    "name": "RND Formulation Workflow",
+    "document_type": "Formulation",
+    "workflow_state_field": "status",
+    "is_active": 1,
+    "send_email_alert": 1,
+    "states": [
+      {
+        "state": "Draft",
+        "doc_status": "0",
+        "allow_edit": "R&D Manager,R&D Scientist"
+      },
+      {
+        "state": "Under Testing",
+        "doc_status": "1",
+        "allow_edit": "R&D Manager"
+      },
+      {
+        "state": "Approved",
+        "doc_status": "1",
+        "allow_edit": "R&D Manager"
+      },
+      {
+        "state": "Rejected",
+        "doc_status": "1",
+        "allow_edit": "R&D Manager"
+      }
+    ],
+    "transitions": [
+      {
+        "state": "Draft",
+        "action": "Submit for Testing",
+        "next_state": "Under Testing",
+        "allowed": "R&D Manager,R&D Scientist",
+        "condition": "doc.ingredients.length > 0"
+      },
+      {
+        "state": "Under Testing",
+        "action": "Approve",
+        "next_state": "Approved",
+        "allowed": "R&D Manager"
+      },
+      {
+        "state": "Under Testing",
+        "action": "Reject",
+        "next_state": "Rejected",
+        "allowed": "R&D Manager"
+      },
+      {
+        "state": "Rejected",
+        "action": "Reopen",
+        "next_state": "Draft",
+        "allowed": "R&D Manager"
+      }
+    ]
+  }
+]
+doctype/formulation/formulation.py
+python
+Copy
+Download
+import frappe
+from frappe.model.document import Document
+from frappe.utils import nowdate, get_link_to_form
+from frappe import _
+
+class Formulation(Document):
+    def autoname(self):
+        if not self.formulation_code:
+            prefix = "F-"
+            if self.purpose == "Animal Nutrition":
+                prefix = "FA-"
+            elif self.purpose == "Human Food":
+                prefix = "FH-"
+            elif self.purpose == "Agricultural Application":
+                prefix = "FAG-"
+            
+            self.formulation_code = prefix + self.formulation_name.replace(" ", "-").upper()
+        self.name = self.formulation_code
+
+    def validate(self):
+        self.validate_ingredient_percentages()
+        self.calculate_nutritional_profile()
+        self.sync_with_project()
+    
+    def validate_ingredient_percentages(self):
+        total = sum(float(row.percentage) for row in self.ingredients)
+        if abs(total - 100) > 0.01:
+            frappe.throw(_("Ingredient percentages must sum to 100% (current total: {0:.2f}%)").format(total))
+    
+    def calculate_nutritional_profile(self):
+        protein_content = 0
+        vitamin_score = 0
+        
+        for ingredient in self.ingredients:
+            item = frappe.get_doc("Item", ingredient.ingredient)
+            protein_content += (item.protein_content or 0) * ingredient.percentage / 100
+            vitamin_score += (item.vitamin_score or 0) * ingredient.percentage / 100
+        
+        self.protein_content = protein_content
+        self.vitamin_score = vitamin_score
+    
+    def sync_with_project(self):
+        if self.project and not self.is_new():
+            project = frappe.get_doc("Research Project", self.project)
+            found = False
+            for formulation in project.formulations:
+                if formulation.formulation == self.name:
+                    found = True
+                    break
+            
+            if not found:
+                project.append("formulations", {
+                    "formulation": self.name,
+                    "status": self.status,
+                    "purpose": self.purpose
+                })
+                project.save()
+    
+    def on_submit(self):
+        if self.status == "Approved":
+            self.create_bom()
+    
+    def create_bom(self):
+        bom = frappe.new_doc("BOM")
+        bom.item = self.formulation_code
+        bom.item_name = self.formulation_name
+        bom.quantity = 100  # Base quantity for percentages
+        bom.uom = "kg"
+        bom.with_operations = 0
+        
+        for ingredient in self.ingredients:
+            bom.append("items", {
+                "item_code": ingredient.ingredient,
+                "qty": ingredient.percentage,
+                "uom": "kg"
+            })
+        
+        bom.insert()
+        bom.submit()
+        
+        frappe.msgprint(_("BOM {0} created successfully").format(get_link_to_form("BOM", bom.name)))
+
+@frappe.whitelist()
+def make_animal_trial(source_name, target_doc=None):
+    def set_missing_values(source, target):
+        target.trial_type = "Formulation Test"
+        target.start_date = nowdate()
+        target.expected_end_date = frappe.utils.add_days(nowdate(), 30)
+    
+    doc = frappe.get_doc({
+        "doctype": "Animal Trial",
+        "formulation": source_name,
+        "title": "Test for " + source_name,
+        "status": "Planned"
+    })
+    
+    set_missing_values(source_name, doc)
+    
+    return doc
+doctype/research_project/research_project.py
+python
+Copy
+Download
+import frappe
+from frappe.model.document import Document
+from frappe.utils import getdate, format_date
+from frappe import _
+
+class ResearchProject(Document):
+    def validate(self):
+        self.update_gantt_chart()
+        self.sync_with_project_task()
+    
+    def update_gantt_chart(self):
+        tasks = []
+        if self.tasks:
+            for task in self.tasks:
+                tasks.append({
+                    "id": task.name,
+                    "name": task.subject,
+                    "start": format_date(task.start_date),
+                    "end": format_date(task.end_date),
+                    "progress": task.progress or 0,
+                    "dependencies": task.depends_on or ""
+                })
+        
+        self.gantt_chart = """
+            <div class="gantt-target" id="gantt-{0}"></div>
+            <script>
+                frappe.ready(function() {{
+                    new Gantt("#gantt-{0}", {1});
+                }});
+            </script>
+        """.format(self.name, frappe.as_json(tasks))
+    
+    def sync_with_project_task(self):
+        if not self.tasks:
+            project = frappe.get_doc("Project", self.name)
+            for task in project.tasks:
+                self.append("tasks", {
+                    "task": task.name,
+                    "subject": task.subject,
+                    "status": task.status,
+                    "start_date": task.start_date,
+                    "end_date": task.end_date,
+                    "progress": task.progress,
+                    "depends_on": task.depends_on
+                })
+    
+    def on_submit(self):
+        self.create_project()
+    
+    def create_project(self):
+        if not frappe.db.exists("Project", self.name):
+            project = frappe.new_doc("Project")
+            project.project_name = self.project_name
+            project.expected_start_date = self.start_date
+            project.expected_end_date = self.end_date
+            project.project_type = "Research"
+            project.insert()
+            
+            # Create standard tasks
+            self.create_standard_tasks(project)
+            
+            frappe.msgprint(_("Project {0} created successfully").format(
+                frappe.utils.get_link_to_form("Project", project.name)
+            ))
+    
+    def create_standard_tasks(self, project):
+        standard_tasks = [
+            {"subject": "Literature Review", "duration": 7},
+            {"subject": "Formulation Development", "duration": 14},
+            {"subject": "Lab Testing", "duration": 21},
+            {"subject": "Animal Trials", "duration": 30},
+            {"subject": "Data Analysis", "duration": 14},
+            {"subject": "Report Preparation", "duration": 7}
+        ]
+        
+        for i, task in enumerate(standard_tasks):
+            start_date = frappe.utils.add_days(self.start_date, sum(t['duration'] for t in standard_tasks[:i]))
+            end_date = frappe.utils.add_days(start_date, task['duration'])
+            
+            project_task = frappe.new_doc("Task")
+            project_task.subject = task['subject']
+            project_task.project = project.name
+            project_task.start_date = start_date
+            project_task.end_date = end_date
+            project_task.description = f"Standard research task for {task['subject']}"
+            
+            if i > 0:
+                project_task.depends_on = [{
+                    "task": project.tasks[i-1].name,
+                    "subject": project.tasks[i-1].subject
+                }]
+            
+            project_task.insert()
+doctype/animal_trial/animal_trial.json
+json
+Copy
+Download
+{
+  "doctype": "DocType",
+  "module": "R&D Nutrition",
+  "name": "Animal Trial",
+  "is_submittable": 1,
+  "fields": [
+    {
+      "fieldname": "title",
+      "label": "Title",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "formulation",
+      "label": "Formulation",
+      "fieldtype": "Link",
+      "options": "Formulation",
+      "reqd": 1
+    },
+    {
+      "fieldname": "trial_type",
+      "label": "Trial Type",
+      "fieldtype": "Select",
+      "options": "Formulation Test\nEfficacy Test\nSafety Test",
+      "default": "Formulation Test"
+    },
+    {
+      "fieldname": "animal_species",
+      "label": "Animal Species",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "animal_count",
+      "label": "Number of Animals",
+      "fieldtype": "Int",
+      "reqd": 1
+    },
+    {
+      "fieldname": "start_date",
+      "label": "Start Date",
+      "fieldtype": "Date",
+      "reqd": 1
+    },
+    {
+      "fieldname": "expected_end_date",
+      "label": "Expected End Date",
+      "fieldtype": "Date"
+    },
+    {
+      "fieldname": "actual_end_date",
+      "label": "Actual End Date",
+      "fieldtype": "Date"
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "Planned\nIn Progress\nCompleted\nCancelled",
+      "default": "Planned"
+    },
+    {
+      "fieldname": "results_section",
+      "label": "Results",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "health_improvement",
+      "label": "Health Improvement (%)",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "weight_gain",
+      "label": "Average Weight Gain (kg)",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "observations",
+      "label": "Observations",
+      "fieldtype": "Text Editor"
+    },
+    {
+      "fieldname": "conclusions",
+      "label": "Conclusions",
+      "fieldtype": "Text Editor"
+    },
+    {
+      "fieldname": "project",
+      "label": "Research Project",
+      "fieldtype": "Link",
+      "options": "Research Project"
+    },
+    {
+      "fieldname": "task",
+      "label": "Related Task",
+      "fieldtype": "Link",
+      "options": "Task"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "R&D Manager",
+      "permlevel": 0,
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1
+    },
+    {
+      "role": "R&D Scientist",
+      "permlevel": 0,
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 0,
+      "submit": 0,
+      "cancel": 0,
+      "amend": 0
+    }
+  ]
+}
+3. Customizing Project Tasks
+patches.py (to add custom fields to Task)
+python
+Copy
+Download
+from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
+
+def execute():
+    custom_fields = {
+        "Task": [
+            {
+                "fieldname": "is_research_task",
+                "label": "Is Research Task",
+                "fieldtype": "Check",
+                "insert_after": "subject",
+                "read_only": 1
+            },
+            {
+                "fieldname": "research_project",
+                "label": "Research Project",
+                "fieldtype": "Link",
+                "options": "Research Project",
+                "insert_after": "is_research_task",
+                "depends_on": "eval:doc.is_research_task"
+            }
+        ]
+    }
+    
+    create_custom_fields(custom_fields)
+4. Dashboard Implementation
+templates/pages/rnd_dashboard.html
+html
+Copy
+Download
+Run
+{% extends "templates/web.html" %}
+
+{% block title %}R&D Dashboard{% endblock %}
+
+{% block page_content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Research & Development Dashboard</h1>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Active Projects</h5>
+                </div>
+                <div class="card-body">
+                    {% for project in active_projects %}
+                    <div class="project-card">
+                        <h6>{{ project.project_name }}</h6>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: {{ project.progress }}%">
+                                {{ project.progress }}%
+                            </div>
+                        </div>
+                        <p>Start: {{ frappe.format_date(project.start_date) }}</p>
+                        <p>End: {{ frappe.format_date(project.end_date) }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Recent Formulations</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Purpose</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for formulation in recent_formulations %}
+                            <tr>
+                                <td>
+                                    <a href="/app/formulation/{{ formulation.name }}">
+                                        {{ formulation.formulation_name }}
+                                    </a>
+                                </td>
+                                <td>{{ formulation.purpose }}</td>
+                                <td>
+                                    <span class="indicator {{ 'green' if formulation.status=='Approved' else 'orange' }}">
+                                        {{ formulation.status }}
+                                    </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Ongoing Trials</h5>
+                </div>
+                <div class="card-body">
+                    {% for trial in ongoing_trials %}
+                    <div class="trial-card">
+                        <h6>{{ trial.title }}</h6>
+                        <p>Formulation: {{ trial.formulation }}</p>
+                        <p>Started: {{ frappe.format_date(trial.start_date) }}</p>
+                        <p>Status: {{ trial.status }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+frappe.ready(function() {
+    // Add any dashboard specific JavaScript here
+});
+</script>
+{% endblock %}
+www/js/rnd.js
+javascript
+Copy
+Download
+frappe.pages['rnd_dashboard'].on_page_load = function(wrapper) {
+    frappe.ui.make_app_page({
+        parent: wrapper,
+        title: 'R&D Dashboard',
+        single_column: true
+    });
+    
+    frappe.call({
+        method: "rnd_nutrition.rnd_nutrition.doctype.research_project.research_project.get_dashboard_data",
+        callback: function(r) {
+            if(r.message) {
+                $(wrapper).find(".layout-main-section").html(r.message.html);
+            }
+        }
+    });
+};
+
+frappe.ui.form.on('Task', {
+    refresh: function(frm) {
+        if(frm.doc.is_research_task && !frm.doc.research_project) {
+            frappe.db.get_value('Project', frm.doc.project, 'research_project', (r) => {
+                if(r.research_project) {
+                    frm.set_value('research_project', r.research_project);
+                }
+            });
+        }
+    }
+});
+This complete module provides:
+Formulation management with complex ingredient combinations
+Research project tracking with Gantt charts
+Animal and plant trial management
+Workflow integration
+Project task synchronization
+Custom dashboard for R&D overview
+To install this:
+Create the app with bench new-app rnd_nutrition
+Copy all these files to the appropriate locations
+Install the app on your site with bench --site [your-site] install-app rnd_nutrition
+Run migrations with bench --site [your-site] migrate
+Would you like me to explain any specific part in more detail or add any additional functionality?
+can you treat more than a BOM and add the release status something like we do in Github, may be an ingredient is not so good and we need to get two steps backward on this ingredient or BOM
+Enhanced Formulation Management with Release States and Ingredient Tracking
+I'll expand the module to include GitHub-like release states and more granular ingredient version control. This will allow you to track formulation iterations and manage ingredient changes more effectively.
+1. Enhanced Formulation Doctype
+doctype/formulation/formulation.json (Updates)
+json
+Copy
+Download
+{
+  // ... existing fields ...
+  "fields": [
+    // ... existing fields ...
+    {
+      "fieldname": "release_status",
+      "label": "Release Status",
+      "fieldtype": "Select",
+      "options": "Experimental\nAlpha\nBeta\nRelease Candidate\nStable\nDeprecated",
+      "default": "Experimental"
+    },
+    {
+      "fieldname": "version",
+      "label": "Version",
+      "fieldtype": "Data",
+      "read_only": 1,
+      "default": "0.1.0"
+    },
+    {
+      "fieldname": "based_on",
+      "label": "Based On",
+      "fieldtype": "Link",
+      "options": "Formulation",
+      "description": "Previous version this formulation was derived from"
+    },
+    {
+      "fieldname": "change_log",
+      "label": "Change Log",
+      "fieldtype": "Table",
+      "options": "Formulation Change Log"
+    }
+  ]
+}
+doctype/formulation_change_log/formulation_change_log.json
+json
+Copy
+Download
+{
+  "doctype": "DocType",
+  "module": "R&D Nutrition",
+  "name": "Formulation Change Log",
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "date",
+      "label": "Date",
+      "fieldtype": "Date",
+      "reqd": 1,
+      "default": "today"
+    },
+    {
+      "fieldname": "changed_by",
+      "label": "Changed By",
+      "fieldtype": "Link",
+      "options": "User",
+      "reqd": 1,
+      "default": "user"
+    },
+    {
+      "fieldname": "type",
+      "label": "Change Type",
+      "fieldtype": "Select",
+      "options": "Ingredient Modification\nRelease Status Change\nNew Version\nBug Fix\nPerformance Improvement",
+      "reqd": 1
+    },
+    {
+      "fieldname": "description",
+      "label": "Description",
+      "fieldtype": "Text Editor",
+      "reqd": 1
+    },
+    {
+      "fieldname": "ingredients_affected",
+      "label": "Ingredients Affected",
+      "fieldtype": "Table",
+      "options": "Change Log Ingredient Reference"
+    }
+  ]
+}
+doctype/change_log_ingredient_reference/change_log_ingredient_reference.json
+json
+Copy
+Download
+{
+  "doctype": "DocType",
+  "module": "R&D Nutrition",
+  "name": "Change Log Ingredient Reference",
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "ingredient",
+      "label": "Ingredient",
+      "fieldtype": "Link",
+      "options": "Item",
+      "reqd": 1
+    },
+    {
+      "fieldname": "previous_percentage",
+      "label": "Previous %",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "new_percentage",
+      "label": "New %",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "change_type",
+      "label": "Change Type",
+      "fieldtype": "Select",
+      "options": "Added\nRemoved\nModified\nSubstituted"
+    }
+  ]
+}
+2. Enhanced Formulation Logic
+doctype/formulation/formulation.py (Updates)
+python
+Copy
+Download
+from frappe.model.document import Document
+from frappe import _
+import semver
+
+class Formulation(Document):
+    def autoname(self):
+        # ... existing autoname logic ...
+        
+    def validate(self):
+        self.validate_ingredient_percentages()
+        self.calculate_nutritional_profile()
+        self.sync_with_project()
+        self.manage_versioning()
+        self.track_changes()
+    
+    def manage_versioning(self):
+        if self.is_new():
+            return
+            
+        if not self.based_on:
+            # Find previous version
+            prev_versions = frappe.get_all("Formulation",
+                filters={"formulation_name": self.formulation_name, "name": ("!=", self.name)},
+                order_by="creation desc",
+                limit=1)
+            if prev_versions:
+                self.based_on = prev_versions[0].name
+        
+        # Auto-increment version based on release status
+        if self.has_value_changed("release_status"):
+            self.increment_version()
+    
+    def increment_version(self):
+        if not self.version:
+            self.version = "0.1.0"
+            return
+            
+        current = semver.VersionInfo.parse(self.version)
+        
+        if self.release_status == "Experimental":
+            new_version = current.bump_patch()
+        elif self.release_status == "Alpha":
+            new_version = current.bump_minor()
+        elif self.release_status in ["Beta", "Release Candidate"]:
+            new_version = current.bump_minor()
+        elif self.release_status == "Stable":
+            new_version = current.bump_major()
+        else:
+            new_version = current
+            
+        self.version = str(new_version)
+    
+    def track_changes(self):
+        if self.is_new() or not self.has_value_changed("ingredients"):
+            return
+            
+        # Get previous version
+        prev_doc = self.get_doc_before_save()
+        if not prev_doc:
+            return
+            
+        # Create change log entry
+        change_log = {
+            "date": frappe.utils.nowdate(),
+            "changed_by": frappe.session.user,
+            "type": "Ingredient Modification",
+            "description": "Formulation ingredients updated"
+        }
+        
+        # Track ingredient changes
+        prev_ingredients = {(row.ingredient, row.percentage) for row in prev_doc.ingredients}
+        current_ingredients = {(row.ingredient, row.percentage) for row in self.ingredients}
+        
+        added = current_ingredients - prev_ingredients
+        removed = prev_ingredients - current_ingredients
+        changed = set()
+        
+        # Find modified percentages
+        prev_dict = {row.ingredient: row.percentage for row in prev_doc.ingredients}
+        current_dict = {row.ingredient: row.percentage for row in self.ingredients}
+        
+        for ing in set(prev_dict.keys()).intersection(set(current_dict.keys())):
+            if prev_dict[ing] != current_dict[ing]:
+                changed.add((ing, prev_dict[ing], current_dict[ing]))
+        
+        # Add to change log
+        change_log["ingredients_affected"] = []
+        
+        for ing, perc in added:
+            change_log["ingredients_affected"].append({
+                "ingredient": ing,
+                "new_percentage": perc,
+                "change_type": "Added"
+            })
+            
+        for ing, perc in removed:
+            change_log["ingredients_affected"].append({
+                "ingredient": ing,
+                "previous_percentage": perc,
+                "change_type": "Removed"
+            })
+            
+        for ing, prev_perc, new_perc in changed:
+            change_log["ingredients_affected"].append({
+                "ingredient": ing,
+                "previous_percentage": prev_perc,
+                "new_percentage": new_perc,
+                "change_type": "Modified"
+            })
+        
+        self.append("change_log", change_log)
+    
+    def rollback_ingredient(self, ingredient_name):
+        """Rollback a specific ingredient to previous version"""
+        if not self.based_on:
+            frappe.throw(_("No previous version available to rollback from"))
+            
+        prev_doc = frappe.get_doc("Formulation", self.based_on)
+        prev_ingredient = next((row for row in prev_doc.ingredients 
+                              if row.ingredient == ingredient_name), None)
+        
+        if not prev_ingredient:
+            frappe.throw(_("Ingredient not found in previous version"))
+            
+        # Update current formulation
+        current_ingredient = next((row for row in self.ingredients 
+                                 if row.ingredient == ingredient_name), None)
+        
+        if current_ingredient:
+            current_ingredient.percentage = prev_ingredient.percentage
+        else:
+            self.append("ingredients", {
+                "ingredient": prev_ingredient.ingredient,
+                "percentage": prev_ingredient.percentage
+            })
+            
+        self.add_change_log(
+            type="Bug Fix",
+            description=f"Rolled back ingredient {ingredient_name} to version {self.based_on}",
+            affected_ingredients=[{
+                "ingredient": ingredient_name,
+                "previous_percentage": current_ingredient.percentage if current_ingredient else 0,
+                "new_percentage": prev_ingredient.percentage,
+                "change_type": "Modified"
+            }]
+        )
+    
+    def add_change_log(self, type, description, affected_ingredients=None):
+        """Helper method to add change log entries"""
+        entry = {
+            "date": frappe.utils.nowdate(),
+            "changed_by": frappe.session.user,
+            "type": type,
+            "description": description
+        }
+        
+        if affected_ingredients:
+            entry["ingredients_affected"] = affected_ingredients
+            
+        self.append("change_log", entry)
+    
+    def create_new_version(self):
+        """Create a new version of this formulation"""
+        new_doc = frappe.copy_doc(self)
+        new_doc.based_on = self.name
+        new_doc.release_status = "Experimental"
+        new_doc.status = "Draft"
+        new_doc.change_log = []
+        
+        # Reset approval status
+        if new_doc.docstatus == 1:
+            new_doc.docstatus = 0
+            
+        return new_doc
+3. Enhanced BOM Management
+doctype/formulation/formulation.py (BOM Updates)
+python
+Copy
+Download
+class Formulation(Document):
+    # ... existing methods ...
+    
+    def create_bom(self):
+        """Create BOM with release status tracking"""
+        if frappe.db.exists("BOM", {"item": self.formulation_code, "docstatus": 1}):
+            frappe.msgprint(_("BOM already exists for this formulation"))
+            return
+            
+        bom = frappe.new_doc("BOM")
+        bom.item = self.formulation_code
+        bom.item_name = self.formulation_name
+        bom.quantity = 100
+        bom.uom = "kg"
+        bom.with_operations = 0
+        bom.release_status = self.release_status
+        bom.formulation_version = self.version
+        
+        # Add ingredients
+        for ingredient in self.ingredients:
+            item = frappe.get_doc("Item", ingredient.ingredient)
+            
+            bom.append("items", {
+                "item_code": ingredient.ingredient,
+                "qty": ingredient.percentage,
+                "uom": "kg",
+                "item_name": item.item_name,
+                "description": item.description
+            })
+        
+        # Add quality inspection parameters
+        if self.release_status in ["Beta", "Release Candidate", "Stable"]:
+            self.add_quality_parameters(bom)
+        
+        bom.insert()
+        
+        if self.release_status in ["Release Candidate", "Stable"]:
+            bom.submit()
+        
+        frappe.msgprint(_("BOM {0} created with status {1}").format(
+            frappe.utils.get_link_to_form("BOM", bom.name),
+            self.release_status
+        ))
+        
+        return bom
+    
+    def add_quality_parameters(self, bom):
+        """Add quality check parameters based on formulation"""
+        parameters = {
+            "Protein Content": {
+                "target": self.protein_content,
+                "tolerance": 0.5
+            },
+            "Vitamin Score": {
+                "target": self.vitamin_score,
+                "tolerance": 1.0
+            }
+        }
+        
+        for param, values in parameters.items():
+            bom.append("quality_inspection_parameters", {
+                "parameter": param,
+                "target": values["target"],
+                "tolerance": values["tolerance"]
+            })
+    
+    def rollback_bom(self):
+        """Rollback to previous BOM version"""
+        if not self.based_on:
+            frappe.throw(_("No previous version available to rollback from"))
+            
+        prev_doc = frappe.get_doc("Formulation", self.based_on)
+        
+        # Find active BOM for previous version
+        bom = frappe.get_all("BOM",
+            filters={"item": prev_doc.formulation_code, "docstatus": 1},
+            order_by="creation desc",
+            limit=1)
+            
+        if not bom:
+            frappe.throw(_("No active BOM found for previous version"))
+            
+        # Create new BOM based on previous version
+        prev_bom = frappe.get_doc("BOM", bom[0].name)
+        new_bom = frappe.copy_doc(prev_bom)
+        new_bom.release_status = "Experimental"
+        new_bom.formulation_version = self.version
+        new_bom.insert()
+        
+        self.add_change_log(
+            type="Bug Fix",
+            description=f"Rolled back BOM to version {prev_doc.version}"
+        )
+        
+        frappe.msgprint(_("BOM rolled back to version {0}").format(
+            frappe.utils.get_link_to_form("BOM", new_bom.name)
+        ))
+4. Client-Side Enhancements
+doctype/formulation/formulation.js
+javascript
+Copy
+Download
+frappe.ui.form.on('Formulation', {
+    refresh: function(frm) {
+        // Add version control buttons
+        if(!frm.is_new()) {
+            // Create new version button
+            frm.add_custom_button(__('Create New Version'), function() {
+                frappe.call({
+                    method: "rnd_nutrition.rnd_nutrition.doctype.formulation.formulation.create_new_version",
+                    args: {
+                        source_name: frm.doc.name
+                    },
+                    callback: function(r) {
+                        if(r.message) {
+                            frappe.set_route("Form", "Formulation", r.message.name);
+                        }
+                    }
+                });
+            });
+            
+            // Rollback buttons
+            if(frm.doc.ingredients && frm.doc.ingredients.length > 0) {
+                frm.add_custom_button(__('Rollback Ingredient'), function() {
+                    show_rollback_dialog(frm);
+                });
+            }
+            
+            if(frm.doc.based_on) {
+                frm.add_custom_button(__('Rollback BOM'), function() {
+                    frappe.confirm(
+                        __("Are you sure you want to rollback the BOM to the previous version?"),
+                        function() {
+                            frm.call("rollback_bom").then(() => frm.reload_doc());
+                        }
+                    );
+                });
+            }
+            
+            // Version history
+            frm.add_custom_button(__('Version History'), function() {
+                frappe.route_options = {
+                    "based_on": frm.doc.name
+                };
+                frappe.set_route("List", "Formulation");
+            });
+        }
+    },
+    
+    release_status: function(frm) {
+        // Validate status transitions
+        const allowed_transitions = {
+            "Experimental": ["Alpha"],
+            "Alpha": ["Beta", "Experimental"],
+            "Beta": ["Release Candidate", "Alpha"],
+            "Release Candidate": ["Stable", "Beta"],
+            "Stable": ["Deprecated", "Release Candidate"],
+            "Deprecated": []
+        };
+        
+        if(frm.doc.__islocal) return;
+        
+        const previous_status = frm.doc.__original_release_status;
+        if(previous_status && !allowed_transitions[previous_status]?.includes(frm.doc.release_status)) {
+            frappe.msgprint({
+                title: __('Invalid Status Transition'),
+                indicator: 'red',
+                message: __(`Cannot change from ${previous_status} to ${frm.doc.release_status}. 
+                    Allowed transitions: ${allowed_transitions[previous_status].join(', ')}`)
+            });
+            frm.set_value("release_status", previous_status);
+        }
+    }
+});
+
+function show_rollback_dialog(frm) {
+    const dialog = new frappe.ui.Dialog({
+        title: __('Rollback Ingredient'),
+        fields: [
+            {
+                label: __('Ingredient'),
+                fieldname: 'ingredient',
+                fieldtype: 'Select',
+                options: frm.doc.ingredients.map(row => row.ingredient).join('\n'),
+                reqd: 1
+            },
+            {
+                label: __('Reason'),
+                fieldname: 'reason',
+                fieldtype: 'Small Text',
+                reqd: 1
+            }
+        ],
+        primary_action_label: __('Rollback'),
+        primary_action(values) {
+            frappe.call({
+                method: "rnd_nutrition.rnd_nutrition.doctype.formulation.formulation.rollback_ingredient",
+                args: {
+                    formulation: frm.doc.name,
+                    ingredient: values.ingredient,
+                    reason: values.reason
+                },
+                callback: function(r) {
+                    if(!r.exc) {
+                        frm.reload_doc();
+                    }
+                }
+            });
+            dialog.hide();
+        }
+    });
+    
+    dialog.show();
+}
+5. Workflow Enhancements
+fixtures/workflow_rnd_formulation.json (Updates)
+json
+Copy
+Download
+{
+  "name": "RND Formulation Workflow",
+  "document_type": "Formulation",
+  "workflow_state_field": "status",
+  "is_active": 1,
+  "send_email_alert": 1,
+  "states": [
+    {
+      "state": "Draft",
+      "doc_status": "0",
+      "allow_edit": "R&D Manager,R&D Scientist",
+      "update_field": "release_status",
+      "update_value": "Experimental"
+    },
+    {
+      "state": "Under Testing",
+      "doc_status": "1",
+      "allow_edit": "R&D Manager",
+      "update_field": "release_status",
+      "update_value": "Alpha"
+    },
+    {
+      "state": "Approved",
+      "doc_status": "1",
+      "allow_edit": "R&D Manager",
+      "update_field": "release_status",
+      "update_value": "Beta"
+    },
+    {
+      "state": "Rejected",
+      "doc_status": "1",
+      "allow_edit": "R&D Manager",
+      "update_field": "release_status",
+      "update_value": "Deprecated"
+    }
+  ],
+  "transitions": [
+    {
+      "state": "Draft",
+      "action": "Submit for Testing",
+      "next_state": "Under Testing",
+      "allowed": "R&D Manager,R&D Scientist",
+      "condition": "doc.ingredients.length > 0",
+      "allow_self_approval": 1
+    },
+    {
+      "state": "Under Testing",
+      "action": "Approve for Production",
+      "next_state": "Approved",
+      "allowed": "R&D Manager",
+      "condition": "doc.release_status in ['Alpha', 'Beta']"
+    },
+    {
+      "state": "Under Testing",
+      "action": "Reject",
+      "next_state": "Rejected",
+      "allowed": "R&D Manager"
+    },
+    {
+      "state": "Approved",
+      "action": "Mark as Stable",
+      "allowed": "R&D Manager",
+      "next_state": "Approved",
+      "action_update_field": "release_status",
+      "action_update_value": "Stable"
+    },
+    {
+      "state": "Approved",
+      "action": "Mark as Release Candidate",
+      "allowed": "R&D Manager",
+      "next_state": "Approved",
+      "action_update_field": "release_status",
+      "action_update_value": "Release Candidate"
+    },
+    {
+      "state": "Rejected",
+      "action": "Reopen",
+      "next_state": "Draft",
+      "allowed": "R&D Manager",
+      "update_field": "release_status",
+      "update_value": "Experimental"
+    }
+  ]
+}
+6. Version Comparison View
+templates/includes/formulation/version_compare.html
+html
+Copy
+Download
+Run
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Version {{ old_version.version }} ({{ old_version.release_status }})</h4>
+            <p>Created on: {{ frappe.format_date(old_version.creation) }}</p>
+            <div class="version-box">
+                {% include "templates/includes/formulation/ingredient_table.html" with {
+                    "ingredients": old_version.ingredients,
+                    "readonly": true
+                } %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h4>Version {{ new_version.version }} ({{ new_version.release_status }})</h4>
+            <p>Created on: {{ frappe.format_date(new_version.creation) }}</p>
+            <div class="version-box">
+                {% include "templates/includes/formulation/ingredient_table.html" with {
+                    "ingredients": new_version.ingredients,
+                    "readonly": true
+                } %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Changes</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Ingredient</th>
+                        <th>Change Type</th>
+                        <th>Old Value</th>
+                        <th>New Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for change in changes %}
+                    <tr class="{{ 'added' if change.change_type=='Added' else 'removed' if change.change_type=='Removed' else 'modified' }}">
+                        <td>{{ change.ingredient }}</td>
+                        <td>{{ change.change_type }}</td>
+                        <td>{{ change.previous_percentage or '' }}</td>
+                        <td>{{ change.new_percentage or '' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+.version-box {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 3px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+}
+.added {
+    background-color: #e6ffed;
+}
+.removed {
+    background-color: #ffebe9;
+}
+.modified {
+    background-color: #fff8c5;
+}
+</style>
+Implementation Notes
+Version Control:
+Semantic versioning (major.minor.patch) is implemented
+Each status change auto-increments the appropriate version part
+Full change history is maintained
+Rollback Capabilities:
+Rollback specific ingredients to previous versions
+Rollback entire BOM to previous state
+Track all rollbacks in change log
+BOM Integration:
+BOMs inherit formulation release status
+Quality parameters automatically added based on status
+Version tracking between formulations and BOMs
+Workflow:
+Status changes automatically update release status
+Controlled transitions between states
+Validation of allowed status changes
+To use this enhanced system:
+Create formulations with iterative versions
+Track changes through the change log
+Use release status to indicate stability
+Rollback problematic ingredients when needed
+Compare versions to understand changes
+Would you like me to add any additional features to this version control system, such as:
+Approval workflows for status changes
+Integration with document management for research papers
+More detailed impact analysis for ingredient changes
+Batch testing results linked to versions?
+ok can you write the files direcly to my github? or google drive?
+I can't directly write files to your GitHub or Google Drive, but I can provide you with several easy ways to transfer these files:
+Option 1: GitHub Repository Setup (Recommended)
+Create a new repository on GitHub for your ERPNext module
+Clone it locally:
+bash
+Copy
+Download
+git clone https://github.com/yourusername/rnd_nutrition.git
+cd rnd_nutrition
+Create the file structure I provided in your local repository
+Commit and push:
+bash
+Copy
+Download
+git add .
+git commit -m "Initial R&D Nutrition module"
+git push origin main
+Option 2: Google Drive Upload
+Create a ZIP file of all the files I've provided
+Upload to Google Drive manually
+Option 3: Direct Download
+I can provide the complete module as a ZIP file for download. Here's how:
+Create a ZIP file structure:
+bash
+Copy
+Download
+mkdir rnd_nutrition
+# Create all the files and folders as shown in the structure
+zip -r rnd_nutrition.zip rnd_nutrition/
+You can download the ZIP from a file sharing service
+Would you prefer me to:
+A) Provide the complete ZIP file content as base64 encoded text that you can decode
+B) Give you step-by-step GitHub CLI instructions
+C) Provide individual files that you can copy-paste into your system
+D) Another method you prefer?
+Let me know which approach works best for you, and I'll adapt the delivery method accordingly.
+For immediate use, here's a sample file you can save directly (save as hooks.py in your module):
+python
+Copy
+Download
+from frappe import _
+
+app_name = "rnd_nutrition"
+app_title = "R&D Nutrition"
+app_publisher = "Your Company"
+app_description = "Research and Development for Nutritional Products"
+app_icon = "fa-flask"
+app_color = "#4CAF50"
+app_email = "contact@yourcompany.com"
+app_license = "GPLv3"
+
+app_include_css = ["/assets/rnd_nutrition/css/rnd.css"]
+app_include_js = ["/assets/rnd_nutrition/js/rnd.js"]
+
+website_user_home_page = "rnd_dashboard"
+
+after_install = "rnd_nutrition.setup.install.after_install"
+
+fixtures = [
+    {"dt": "Workflow", "filters": [["name", "like", "RND%"]]},
+    {"dt": "Custom Field", "filters": [["dt", "in", ["Item", "Project", "Task"]]]},
+    {"dt": "Property Setter", "filters": [["doc_type", "in", ["Item", "Project"]]]}
+]
+
+override_doctype_class = {
+    "Project": "rnd_nutrition.overrides.project.CustomProject"
+}
+Would you like me to proceed with any of these methods for the complete module transfer?
+C) Provide individual files that you can copy-paste into your system I think this is the must better
+Individual Files for R&D Nutrition Module
+I'll provide the key files individually that you can copy-paste into your system. Here's the complete module structure with file contents:
+1. Core Module Files
+hooks.py
+python
+Copy
+Download
+from frappe import _
+
+app_name = "rnd_nutrition"
+app_title = "R&D Nutrition"
+app_publisher = "Your Company"
+app_description = "Research and Development for Nutritional Products"
+app_icon = "fa-flask"
+app_color = "#4CAF50"
+app_email = "contact@yourcompany.com"
+app_license = "GPLv3"
+app_version = "0.1.0"
+
+app_include_css = ["/assets/rnd_nutrition/css/rnd.css"]
+app_include_js = ["/assets/rnd_nutrition/js/rnd.js"]
+
+website_user_home_page = "rnd_dashboard"
+
+after_install = "rnd_nutrition.setup.install.after_install"
+
+fixtures = [
+    {"dt": "Workflow", "filters": [["name", "like", "RND%"]]},
+    {"dt": "Custom Field", "filters": [["dt", "in", ["Item", "Project", "Task"]]]},
+    {"dt": "Property Setter", "filters": [["doc_type", "in", ["Item", "Project"]]]}
+]
+
+override_doctype_class = {
+    "Project": "rnd_nutrition.overrides.project.CustomProject"
+}
+patches.py
+python
+Copy
+Download
+from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
+
+def execute():
+    custom_fields = {
+        "Item": [
+            {
+                "fieldname": "protein_content",
+                "label": "Protein Content (%)",
+                "fieldtype": "Float",
+                "insert_after": "description"
+            },
+            {
+                "fieldname": "vitamin_score",
+                "label": "Vitamin Score",
+                "fieldtype": "Float",
+                "insert_after": "protein_content"
+            },
+            {
+                "fieldname": "is_natural_ingredient",
+                "label": "Is Natural Ingredient",
+                "fieldtype": "Check",
+                "insert_after": "vitamin_score"
+            }
+        ],
+        "Task": [
+            {
+                "fieldname": "is_research_task",
+                "label": "Is Research Task",
+                "fieldtype": "Check",
+                "insert_after": "subject"
+            },
+            {
+                "fieldname": "research_project",
+                "label": "Research Project",
+                "fieldtype": "Link",
+                "options": "Research Project",
+                "insert_after": "is_research_task"
+            }
+        ]
+    }
+    
+    create_custom_fields(custom_fields)
+2. Formulation Doctype
+doctype/formulation/formulation.json
+json
+Copy
+Download
+{
+  "doctype": "DocType",
+  "module": "R&D Nutrition",
+  "name": "Formulation",
+  "is_submittable": 1,
+  "track_changes": 1,
+  "naming_rule": "By fieldname",
+  "autoname": "field:formulation_name",
+  "fields": [
+    {
+      "fieldname": "formulation_name",
+      "label": "Formulation Name",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "formulation_code",
+      "label": "Formulation Code",
+      "fieldtype": "Data",
+      "read_only": 1,
+      "hidden": 1
+    },
+    {
+      "fieldname": "purpose",
+      "label": "Intended Purpose",
+      "fieldtype": "Select",
+      "options": "Animal Nutrition\nHuman Food\nAgricultural Application",
+      "reqd": 1
+    },
+    {
+      "fieldname": "target_species",
+      "label": "Target Species",
+      "fieldtype": "Data",
+      "depends_on": "eval:doc.purpose == 'Animal Nutrition'"
+    },
+    {
+      "fieldname": "release_status",
+      "label": "Release Status",
+      "fieldtype": "Select",
+      "options": "Experimental\nAlpha\nBeta\nRelease Candidate\nStable\nDeprecated",
+      "default": "Experimental"
+    },
+    {
+      "fieldname": "version",
+      "label": "Version",
+      "fieldtype": "Data",
+      "read_only": 1,
+      "default": "0.1.0"
+    },
+    {
+      "fieldname": "based_on",
+      "label": "Based On",
+      "fieldtype": "Link",
+      "options": "Formulation"
+    },
+    {
+      "fieldname": "ingredients_section",
+      "label": "Ingredients",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "ingredients",
+      "label": "Ingredients Table",
+      "fieldtype": "Table",
+      "options": "Formulation Ingredient",
+      "reqd": 1
+    },
+    {
+      "fieldname": "change_log",
+      "label": "Change Log",
+      "fieldtype": "Table",
+      "options": "Formulation Change Log"
+    },
+    {
+      "fieldname": "nutritional_profile_section",
+      "label": "Nutritional Profile",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "protein_content",
+      "label": "Protein Content (%)",
+      "fieldtype": "Float",
+      "read_only": 1
+    },
+    {
+      "fieldname": "vitamin_score",
+      "label": "Vitamin Score",
+      "fieldtype": "Float",
+      "read_only": 1
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "Draft\nUnder Testing\nApproved\nRejected",
+      "default": "Draft"
+    },
+    {
+      "fieldname": "project",
+      "label": "Research Project",
+      "fieldtype": "Link",
+      "options": "Research Project"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "R&D Manager",
+      "permlevel": 0,
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1
+    },
+    {
+      "role": "R&D Scientist",
+      "permlevel": 0,
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 0,
+      "submit": 0,
+      "cancel": 0,
+      "amend": 0
+    }
+  ]
+}
+doctype/formulation/formulation.py
+python
+Copy
+Download
+import frappe
+from frappe.model.document import Document
+from frappe.utils import nowdate, get_link_to_form
+from frappe import _
+import semver
+
+class Formulation(Document):
+    def autoname(self):
+        if not self.formulation_code:
+            prefix = "F-"
+            if self.purpose == "Animal Nutrition":
+                prefix = "FA-"
+            elif self.purpose == "Human Food":
+                prefix = "FH-"
+            elif self.purpose == "Agricultural Application":
+                prefix = "FAG-"
+            
+            self.formulation_code = prefix + self.formulation_name.replace(" ", "-").upper()
+        self.name = self.formulation_code
+
+    def validate(self):
+        self.validate_ingredient_percentages()
+        self.calculate_nutritional_profile()
+        self.manage_versioning()
+        self.track_changes()
+        self.sync_with_project()
+    
+    def validate_ingredient_percentages(self):
+        total = sum(float(row.percentage) for row in self.ingredients)
+        if abs(total - 100) > 0.01:
+            frappe.throw(_("Ingredient percentages must sum to 100% (current total: {0:.2f}%)").format(total))
+    
+    def calculate_nutritional_profile(self):
+        protein_content = 0
+        vitamin_score = 0
+        
+        for ingredient in self.ingredients:
+            item = frappe.get_doc("Item", ingredient.ingredient)
+            protein_content += (item.protein_content or 0) * ingredient.percentage / 100
+            vitamin_score += (item.vitamin_score or 0) * ingredient.percentage / 100
+        
+        self.protein_content = protein_content
+        self.vitamin_score = vitamin_score
+    
+    def manage_versioning(self):
+        if self.is_new():
+            return
+            
+        if not self.based_on:
+            prev_versions = frappe.get_all("Formulation",
+                filters={"formulation_name": self.formulation_name, "name": ("!=", self.name)},
+                order_by="creation desc",
+                limit=1)
+            if prev_versions:
+                self.based_on = prev_versions[0].name
+        
+        if self.has_value_changed("release_status"):
+            self.increment_version()
+    
+    def increment_version(self):
+        if not self.version:
+            self.version = "0.1.0"
+            return
+            
+        try:
+            current = semver.VersionInfo.parse(self.version)
+            
+            if self.release_status == "Experimental":
+                new_version = current.bump_patch()
+            elif self.release_status == "Alpha":
+                new_version = current.bump_minor()
+            elif self.release_status in ["Beta", "Release Candidate"]:
+                new_version = current.bump_minor()
+            elif self.release_status == "Stable":
+                new_version = current.bump_major()
+            else:
+                new_version = current
+                
+            self.version = str(new_version)
+        except ValueError:
+            frappe.throw(_("Invalid version format. Please use semantic versioning (e.g., 1.0.0)"))
+    
+    def track_changes(self):
+        if self.is_new() or not self.has_value_changed("ingredients"):
+            return
+            
+        prev_doc = self.get_doc_before_save()
+        if not prev_doc:
+            return
+            
+        change_log = {
+            "date": frappe.utils.nowdate(),
+            "changed_by": frappe.session.user,
+            "type": "Ingredient Modification",
+            "description": "Formulation ingredients updated"
+        }
+        
+        prev_ingredients = {(row.ingredient, row.percentage) for row in prev_doc.ingredients}
+        current_ingredients = {(row.ingredient, row.percentage) for row in self.ingredients}
+        
+        added = current_ingredients - prev_ingredients
+        removed = prev_ingredients - current_ingredients
+        changed = set()
+        
+        prev_dict = {row.ingredient: row.percentage for row in prev_doc.ingredients}
+        current_dict = {row.ingredient: row.percentage for row in self.ingredients}
+        
+        for ing in set(prev_dict.keys()).intersection(set(current_dict.keys())):
+            if prev_dict[ing] != current_dict[ing]:
+                changed.add((ing, prev_dict[ing], current_dict[ing]))
+        
+        change_log["ingredients_affected"] = []
+        
+        for ing, perc in added:
+            change_log["ingredients_affected"].append({
+                "ingredient": ing,
+                "new_percentage": perc,
+                "change_type": "Added"
+            })
+            
+        for ing, perc in removed:
+            change_log["ingredients_affected"].append({
+                "ingredient": ing,
+                "previous_percentage": perc,
+                "change_type": "Removed"
+            })
+            
+        for ing, prev_perc, new_perc in changed:
+            change_log["ingredients_affected"].append({
+                "ingredient": ing,
+                "previous_percentage": prev_perc,
+                "new_percentage": new_perc,
+                "change_type": "Modified"
+            })
+        
+        self.append("change_log", change_log)
+    
+    def sync_with_project(self):
+        if self.project and not self.is_new():
+            project = frappe.get_doc("Research Project", self.project)
+            found = False
+            for formulation in project.formulations:
+                if formulation.formulation == self.name:
+                    found = True
+                    break
+            
+            if not found:
+                project.append("formulations", {
+                    "formulation": self.name,
+                    "status": self.status,
+                    "purpose": self.purpose
+                })
+                project.save()
+    
+    def on_submit(self):
+        if self.status == "Approved":
+            self.create_bom()
+    
+    def create_bom(self):
+        if frappe.db.exists("BOM", {"item": self.formulation_code, "docstatus": 1}):
+            frappe.msgprint(_("BOM already exists for this formulation"))
+            return
+            
+        bom = frappe.new_doc("BOM")
+        bom.item = self.formulation_code
+        bom.item_name = self.formulation_name
+        bom.quantity = 100
+        bom.uom = "kg"
+        bom.with_operations = 0
+        bom.release_status = self.release_status
+        bom.formulation_version = self.version
+        
+        for ingredient in self.ingredients:
+            item = frappe.get_doc("Item", ingredient.ingredient)
+            
+            bom.append("items", {
+                "item_code": ingredient.ingredient,
+                "qty": ingredient.percentage,
+                "uom": "kg",
+                "item_name": item.item_name,
+                "description": item.description
+            })
+        
+        if self.release_status in ["Beta", "Release Candidate", "Stable"]:
+            self.add_quality_parameters(bom)
+        
+        bom.insert()
+        
+        if self.release_status in ["Release Candidate", "Stable"]:
+            bom.submit()
+        
+        frappe.msgprint(_("BOM {0} created with status {1}").format(
+            get_link_to_form("BOM", bom.name),
+            self.release_status
+        ))
+    
+    def add_quality_parameters(self, bom):
+        parameters = {
+            "Protein Content": {
+                "target": self.protein_content,
+                "tolerance": 0.5
+            },
+            "Vitamin Score": {
+                "target": self.vitamin_score,
+                "tolerance": 1.0
+            }
+        }
+        
+        for param, values in parameters.items():
+            bom.append("quality_inspection_parameters", {
+                "parameter": param,
+                "target": values["target"],
+                "tolerance": values["tolerance"]
+            })
+    
+    def rollback_ingredient(self, ingredient_name):
+        if not self.based_on:
+            frappe.throw(_("No previous version available to rollback from"))
+            
+        prev_doc = frappe.get_doc("Formulation", self.based_on)
+        prev_ingredient = next((row for row in prev_doc.ingredients 
+                              if row.ingredient == ingredient_name), None)
+        
+        if not prev_ingredient:
+            frappe.throw(_("Ingredient not found in previous version"))
+            
+        current_ingredient = next((row for row in self.ingredients 
+                                 if row.ingredient == ingredient_name), None)
+        
+        if current_ingredient:
+            current_ingredient.percentage = prev_ingredient.percentage
+        else:
+            self.append("ingredients", {
+                "ingredient": prev_ingredient.ingredient,
+                "percentage": prev_ingredient.percentage
+            })
+            
+        self.add_change_log(
+            type="Bug Fix",
+            description=f"Rolled back ingredient {ingredient_name} to version {self.based_on}",
+            affected_ingredients=[{
+                "ingredient": ingredient_name,
+                "previous_percentage": current_ingredient.percentage if current_ingredient else 0,
+                "new_percentage": prev_ingredient.percentage,
+                "change_type": "Modified"
+            }]
+        )
+    
+    def rollback_bom(self):
+        if not self.based_on:
+            frappe.throw(_("No previous version available to rollback from"))
+            
+        prev_doc = frappe.get_doc("Formulation", self.based_on)
+        
+        bom = frappe.get_all("BOM",
+            filters={"item": prev_doc.formulation_code, "docstatus": 1},
+            order_by="creation desc",
+            limit=1)
+            
+        if not bom:
+            frappe.throw(_("No active BOM found for previous version"))
+            
+        prev_bom = frappe.get_doc("BOM", bom[0].name)
+        new_bom = frappe.copy_doc(prev_bom)
+        new_bom.release_status = "Experimental"
+        new_bom.formulation_version = self.version
+        new_bom.insert()
+        
+        self.add_change_log(
+            type="Bug Fix",
+            description=f"Rolled back BOM to version {prev_doc.version}"
+        )
+        
+        frappe.msgprint(_("BOM rolled back to version {0}").format(
+            get_link_to_form("BOM", new_bom.name)
+        ))
+    
+    def add_change_log(self, type, description, affected_ingredients=None):
+        entry = {
+            "date": frappe.utils.nowdate(),
+            "changed_by": frappe.session.user,
+            "type": type,
+            "description": description
+        }
+        
+        if affected_ingredients:
+            entry["ingredients_affected"] = affected_ingredients
+            
+        self.append("change_log", entry)
+    
+    def create_new_version(self):
+        new_doc = frappe.copy_doc(self)
+        new_doc.based_on = self.name
+        new_doc.release_status = "Experimental"
+        new_doc.status = "Draft"
+        new_doc.change_log = []
+        
+        if new_doc.docstatus == 1:
+            new_doc.docstatus = 0
+            
+        return new_doc
+
+@frappe.whitelist()
+def make_animal_trial(source_name, target_doc=None):
+    def set_missing_values(source, target):
+        target.trial_type = "Formulation Test"
+        target.start_date = nowdate()
+        target.expected_end_date = frappe.utils.add_days(nowdate(), 30)
+    
+    doc = frappe.get_doc({
+        "doctype": "Animal Trial",
+        "formulation": source_name,
+        "title": "Test for " + source_name,
+        "status": "Planned"
+    })
+    
+    set_missing_values(source_name, doc)
+    
+    return doc
+doctype/formulation/formulation.js
+javascript
+Copy
+Download
+frappe.ui.form.on('Formulation', {
+    refresh: function(frm) {
+        if(!frm.is_new()) {
+            frm.add_custom_button(__('Create New Version'), function() {
+                frappe.call({
+                    method: "rnd_nutrition.rnd_nutrition.doctype.formulation.formulation.create_new_version",
+                    args: {
+                        source_name: frm.doc.name
+                    },
+                    callback: function(r) {
+                        if(r.message) {
+                            frappe.set_route("Form", "Formulation", r.message.name);
+                        }
+                    }
+                });
+            });
+            
+            if(frm.doc.ingredients && frm.doc.ingredients.length > 0) {
+                frm.add_custom_button(__('Rollback Ingredient'), function() {
+                    show_rollback_dialog(frm);
+                });
+            }
+            
+            if(frm.doc.based_on) {
+                frm.add_custom_button(__('Rollback BOM'), function() {
+                    frappe.confirm(
+                        __("Are you sure you want to rollback the BOM to the previous version?"),
+                        function() {
+                            frm.call("rollback_bom").then(() => frm.reload_doc());
+                        }
+                    );
+                });
+            }
+            
+            frm.add_custom_button(__('Version History'), function() {
+                frappe.route_options = {
+                    "based_on": frm.doc.name
+                };
+                frappe.set_route("List", "Formulation");
+            });
+            
+            frm.add_custom_button(__('Create Animal Trial'), function() {
+                frappe.model.open_mapped_doc({
+                    method: "rnd_nutrition.rnd_nutrition.doctype.formulation.formulation.make_animal_trial",
+                    frm: frm
+                });
+            });
+        }
+    },
+    
+    purpose: function(frm) {
+        if(frm.doc.purpose === "Animal Nutrition") {
+            frm.set_df_property('target_species', 'reqd', 1);
+        } else {
+            frm.set_df_property('target_species', 'reqd', 0);
+        }
+    },
+    
+    release_status: function(frm) {
+        const allowed_transitions = {
+            "Experimental": ["Alpha"],
+            "Alpha": ["Beta", "Experimental"],
+            "Beta": ["Release Candidate", "Alpha"],
+            "Release Candidate": ["Stable", "Beta"],
+            "Stable": ["Deprecated", "Release Candidate"],
+            "Deprecated": []
+        };
+        
+        if(frm.doc.__islocal) return;
+        
+        const previous_status = frm.doc.__original_release_status;
+        if(previous_status && !allowed_transitions[previous_status]?.includes(frm.doc.release_status)) {
+            frappe.msgprint({
+                title: __('Invalid Status Transition'),
+                indicator: 'red',
+                message: __(`Cannot change from ${previous_status} to ${frm.doc.release_status}. 
+                    Allowed transitions: ${allowed_transitions[previous_status].join(', ')}`)
+            });
+            frm.set_value("release_status", previous_status);
+        }
+    }
+});
+
+function show_rollback_dialog(frm) {
+    const dialog = new frappe.ui.Dialog({
+        title: __('Rollback Ingredient'),
+        fields: [
+            {
+                label: __('Ingredient'),
+                fieldname: 'ingredient',
+                fieldtype: 'Select',
+                options: frm.doc.ingredients.map(row => row.ingredient).join('\n'),
+                reqd: 1
+            },
+            {
+                label: __('Reason'),
+                fieldname: 'reason',
+                fieldtype: 'Small Text',
+                reqd: 1
+            }
+        ],
+        primary_action_label: __('Rollback'),
+        primary_action(values) {
+            frappe.call({
+                method: "rnd_nutrition.rnd_nutrition.doctype.formulation.formulation.rollback_ingredient",
+                args: {
+                    formulation: frm.doc.name,
+                    ingredient: values.ingredient,
+                    reason: values.reason
+                },
+                callback: function(r) {
+                    if(!r.exc) {
+                        frm.reload_doc();
+                    }
+                }
+            });
+            dialog.hide();
+        }
+    });
+    
+    dialog.show();
+}
+3. Related Doctypes
+doctype/formulation_ingredient/formulation_ingredient.json
+json
+Copy
+Download
+{
+  "doctype": "DocType",
+  "module": "R&D Nutrition",
+  "name": "Formulation Ingredient",
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "ingredient",
+      "label": "Ingredient",
+      "fieldtype": "Link",
+      "options": "Item",
+      "reqd": 1
+    },
+    {
+      "fieldname": "item_name",
+      "label": "Item Name",
+      "fieldtype": "Data",
+      "fetch_from": "ingredient.item_name",
+      "read_only": 1
+    },
+    {
+      "fieldname": "percentage",
+      "label": "Percentage",
+      "fieldtype": "Float",
+      "reqd": 1,
+      "default": 0
+    },
+    {
+      "fieldname": "protein_contribution",
+      "label": "Protein Contribution",
+      "fieldtype": "Float",
+      "read_only": 1,
+      "formula": "ingredient.protein_content * percentage / 100"
+    },
+    {
+      "fieldname": "vitamin_contribution",
+      "label": "Vitamin Contribution",
+      "fieldtype": "Float",
+      "read_only": 1,
+      "formula": "ingredient.vitamin_score * percentage / 100"
+    }
+  ]
+}
+doctype/formulation_change_log/formulation_change_log.json
+json
+Copy
+Download
+{
+  "doctype": "DocType",
+  "module": "R&D Nutrition",
+  "name": "Formulation Change Log",
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "date",
+      "label": "Date",
+      "fieldtype": "Date",
+      "reqd": 1,
+      "default": "today"
+    },
+    {
+      "fieldname": "changed_by",
+      "label": "Changed By",
+      "fieldtype": "Link",
+      "options": "User",
+      "reqd": 1,
+      "default": "user"
+    },
+    {
+      "fieldname": "type",
+      "label": "Change Type",
+      "fieldtype": "Select",
+      "options": "Ingredient Modification\nRelease Status Change\nNew Version\nBug Fix\nPerformance Improvement",
+      "reqd": 1
+    },
+    {
+      "fieldname": "description",
+      "label": "Description",
+      "fieldtype": "Text Editor",
+      "reqd": 1
+    },
+    {
+      "fieldname": "ingredients_affected",
+      "label": "Ingredients Affected",
+      "fieldtype": "Table",
+      "options": "Change Log Ingredient Reference"
+    }
+  ]
+}
+doctype/change_log_ingredient_reference/change_log_ingredient_reference.json
+json
+Copy
+Download
+{
+  "doctype": "DocType",
+  "module": "R&D Nutrition",
+  "name": "Change Log Ingredient Reference",
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "ingredient",
+      "label": "Ingredient",
+      "fieldtype": "Link",
+      "options": "Item",
+      "reqd": 1
+    },
+    {
+      "fieldname": "previous_percentage",
+      "label": "Previous %",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "new_percentage",
+      "label": "New %",
+      "fieldtype": "Float"
+    },
+    {
+      "fieldname": "change_type",
+      "label": "Change Type",
+      "fieldtype": "Select",
+      "options": "Added\nRemoved\nModified\nSubstituted"
+    }
+  ]
+}
+Would you like me to continue with the remaining files (Animal Trial, Research Project, and other supporting files)? I can provide those as well.
+

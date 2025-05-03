@@ -1,0 +1,32 @@
+{
+    "doctype": "DocType",
+    "module": "R&D Nutrition",
+    "name": "Change Log Ingredient Reference",
+    "istable": 1,
+    "fields": [
+      {
+        "fieldname": "ingredient",
+        "label": "Ingredient",
+        "fieldtype": "Link",
+        "options": "Item",
+        "reqd": 1
+      },
+      {
+        "fieldname": "previous_percentage",
+        "label": "Previous %",
+        "fieldtype": "Float"
+      },
+      {
+        "fieldname": "new_percentage",
+        "label": "New %",
+        "fieldtype": "Float"
+      },
+      {
+        "fieldname": "change_type",
+        "label": "Change Type",
+        "fieldtype": "Select",
+        "options": "Added\nRemoved\nModified\nSubstituted"
+      }
+    ]
+  }
+  

@@ -1,0 +1,27 @@
+{
+    "doctype": "DocType",
+    "module": "R&D Nutrition",
+    "name": "Formulation",
+    "fields": [
+      {
+        "fieldname": "formulation_name",
+        "label": "Formulation Name",
+        "fieldtype": "Data",
+        "reqd": 1
+      },
+      {
+        "fieldname": "purpose",
+        "label": "Intended Purpose",
+        "fieldtype": "Select",
+        "options": "Animal Nutrition\nHuman Food\nAgricultural Application",
+        "reqd": 1
+      },
+      {
+        "fieldname": "ingredients",
+        "label": "Ingredients Table",
+        "fieldtype": "Table",
+        "options": "Formulation Ingredient",
+        "reqd": 1
+      }
+    ]
+  }
