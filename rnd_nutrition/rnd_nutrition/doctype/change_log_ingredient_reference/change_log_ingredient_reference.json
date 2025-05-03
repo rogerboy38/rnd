@@ -1,6 +1,6 @@
 {
     "doctype": "DocType",
-    "module": "R&D Nutrition",
+    "module": "rnd_nutrition",
     "name": "Change Log Ingredient Reference",
     "istable": 1,
     "fields": [
