@@ -12,3 +12,4 @@ class TestChangeLogIngredientReference(unittest.TestCase):
         })
         doc.insert()
         self.assertEqual(doc.ingredient, "Test Ingredient")
+        
