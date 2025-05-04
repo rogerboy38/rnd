@@ -1,0 +1,43 @@
+{
+    "doctype": "DocType",
+    "module": "rnd_nutrition",
+    "name": "Research Project",
+    "fields": [
+      {
+        "fieldname": "project_name",
+        "label": "Project Name",
+        "fieldtype": "Data",
+        "reqd": 1
+      },
+      {
+        "fieldname": "description",
+        "label": "Description",
+        "fieldtype": "Text"
+      },
+      {
+        "fieldname": "start_date",
+        "label": "Start Date",
+        "fieldtype": "Date",
+        "reqd": 1
+      },
+      {
+        "fieldname": "end_date",
+        "label": "End Date",
+        "fieldtype": "Date"
+      },
+      {
+        "fieldname": "status",
+        "label": "Status",
+        "fieldtype": "Select",
+        "options": "Planned\nIn Progress\nCompleted\nOn Hold",
+        "reqd": 1
+      },
+      {
+        "fieldname": "related_formulations",
+        "label": "Related Formulations",
+        "fieldtype": "Table",
+        "options": "Formulation",
+        "reqd": 0
+      }
+    ]
+  }

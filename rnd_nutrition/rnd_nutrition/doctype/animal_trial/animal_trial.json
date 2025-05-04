@@ -1,0 +1,36 @@
+{
+    "doctype": "DocType",
+    "module": "rnd_nutrition",
+    "name": "Animal Trial",
+    "fields": [
+      {
+        "fieldname": "trial_name",
+        "label": "Trial Name",
+        "fieldtype": "Data",
+        "reqd": 1
+      },
+      {
+        "fieldname": "formulation",
+        "label": "Formulation",
+        "fieldtype": "Link",
+        "options": "Formulation",
+        "reqd": 1
+      },
+      {
+        "fieldname": "start_date",
+        "label": "Start Date",
+        "fieldtype": "Date",
+        "reqd": 1
+      },
+      {
+        "fieldname": "end_date",
+        "label": "End Date",
+        "fieldtype": "Date"
+      },
+      {
+        "fieldname": "results",
+        "label": "Results",
+        "fieldtype": "Text"
+      }
+    ]
+  }

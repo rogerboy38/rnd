@@ -1,27 +1,46 @@
 {
-    "doctype": "DocType",
-    "module": "rnd_nutrition",
-    "name": "Formulation",
-    "fields": [
-      {
-        "fieldname": "formulation_name",
-        "label": "Formulation Name",
-        "fieldtype": "Data",
-        "reqd": 1
-      },
-      {
-        "fieldname": "purpose",
-        "label": "Intended Purpose",
-        "fieldtype": "Select",
-        "options": "Animal Nutrition\nHuman Food\nAgricultural Application",
-        "reqd": 1
-      },
-      {
-        "fieldname": "ingredients",
-        "label": "Ingredients Table",
-        "fieldtype": "Table",
-        "options": "Formulation Ingredient",
-        "reqd": 1
-      }
-    ]
-  }
+  "doctype": "DocType",
+  "name": "Formulation",
+  "module": "rnd_nutrition",
+  "fields": [
+    {
+      "fieldname": "formulation_name",
+      "label": "Formulation Name",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "purpose",
+      "label": "Intended Purpose",
+      "fieldtype": "Select",
+      "options": "Animal Nutrition\nHuman Food\nAgricultural Application\nPlant Nutrition",
+      "reqd": 1
+    },
+    {
+      "fieldname": "ingredients",
+      "label": "Ingredients Table",
+      "fieldtype": "Table",
+      "options": "Formulation Ingredient",
+      "reqd": 1
+    },
+    {
+      "fieldname": "change_log",
+      "label": "Change Log",
+      "fieldtype": "Table",
+      "options": "Formulation Change Log"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "All",
+      "read": 1
+    }
+  ]
+}

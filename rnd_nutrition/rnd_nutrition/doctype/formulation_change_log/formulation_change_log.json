@@ -1,0 +1,52 @@
+{
+    "doctype": "DocType",
+    "module": "rnd_nutrition",
+    "name": "Formulation Change Log",
+    "fields": [
+      {
+        "fieldname": "formulation",
+        "label": "Formulation",
+        "fieldtype": "Link",
+        "options": "Formulation",
+        "reqd": 1
+      },
+      {
+        "fieldname": "change_date",
+        "label": "Change Date",
+        "fieldtype": "Datetime",
+        "reqd": 1
+      },
+      {
+        "fieldname": "changed_by",
+        "label": "Changed By",
+        "fieldtype": "Link",
+        "options": "User",
+        "reqd": 1
+      },
+      {
+        "fieldname": "change_details",
+        "label": "Change Details",
+        "fieldtype": "Text",
+        "reqd": 1
+      },
+      {
+        "fieldname": "parent",
+        "label": "Parent",
+        "fieldtype": "Link",
+        "options": "Formulation",
+        "hidden": 1
+      },
+      {
+        "fieldname": "parenttype",
+        "label": "Parent Type",
+        "fieldtype": "Data",
+        "hidden": 1
+      },
+      {
+        "fieldname": "parentfield",
+        "label": "Parent Field",
+        "fieldtype": "Data",
+        "hidden": 1
+      }
+    ]
+  }
