@@ -124,7 +124,7 @@ Download
 from frappe import _
 
 app_name = "rnd_nutrition"
-app_title = "R&D Nutrition"
+app_title = "rnd_nutrition"
 app_publisher = "Your Company"
 app_description = "Research and Development for Nutritional Products"
 app_icon = "fa-flask"
@@ -168,7 +168,7 @@ Copy
 Download
 {
   "doctype": "DocType",
-  "module": "R&D Nutrition",
+  "module": "rnd_nutrition",
   "name": "Formulation",
   "is_submittable": 1,
   "fields": [
@@ -281,7 +281,7 @@ Copy
 Download
 {
   "doctype": "DocType",
-  "module": "R&D Nutrition",
+  "module": "rnd_nutrition",
   "name": "Formulation Ingredient",
   "istable": 1,
   "fields": [
@@ -388,8 +388,8 @@ Implement a version control system for formulations
 Add diff functionality to compare versions
 Would you like me to elaborate on any specific part of this structure or workflow? Maybe focus on a particular aspect like the ingredient management system or trial tracking implementation?
 could you generate for me the entire concept on .json files or a .py ? is it possible include workflows and project tasks
-Complete R&D Nutrition Module for ERPNext
-I'll provide you with a comprehensive set of files for your R&D Nutrition module, including workflows and project task integration. Let's structure this as a complete package.
+Complete rnd_nutrition Module for ERPNext
+I'll provide you with a comprehensive set of files for your rnd_nutrition module, including workflows and project task integration. Let's structure this as a complete package.
 1. Module Structure Overview
 Copy
 Download
@@ -435,7 +435,7 @@ Download
 from frappe import _
 
 app_name = "rnd_nutrition"
-app_title = "R&D Nutrition"
+app_title = "rnd_nutrition"
 app_publisher = "Your Company"
 app_description = "Research and Development for Nutritional Products"
 app_icon = "fa-flask"
@@ -471,7 +471,7 @@ Copy
 Download
 {
   "doctype": "DocType",
-  "module": "R&D Nutrition",
+  "module": "rnd_nutrition",
   "name": "Formulation",
   "is_submittable": 1,
   "track_changes": 1,
@@ -579,7 +579,7 @@ Copy
 Download
 {
   "doctype": "DocType",
-  "module": "R&D Nutrition",
+  "module": "rnd_nutrition",
   "name": "Research Project",
   "is_submittable": 1,
   "track_changes": 1,
@@ -921,7 +921,7 @@ Copy
 Download
 {
   "doctype": "DocType",
-  "module": "R&D Nutrition",
+  "module": "rnd_nutrition",
   "name": "Animal Trial",
   "is_submittable": 1,
   "fields": [
@@ -1269,7 +1269,7 @@ Copy
 Download
 {
   "doctype": "DocType",
-  "module": "R&D Nutrition",
+  "module": "rnd_nutrition",
   "name": "Formulation Change Log",
   "istable": 1,
   "fields": [
@@ -1315,7 +1315,7 @@ Copy
 Download
 {
   "doctype": "DocType",
-  "module": "R&D Nutrition",
+  "module": "rnd_nutrition",
   "name": "Change Log Ingredient Reference",
   "istable": 1,
   "fields": [
@@ -1949,7 +1949,7 @@ bash
 Copy
 Download
 git add .
-git commit -m "Initial R&D Nutrition module"
+git commit -m "Initial rnd_nutrition module"
 git push origin main
 Option 2: Google Drive Upload
 Create a ZIP file of all the files I've provided
@@ -1977,7 +1977,7 @@ Download
 from frappe import _
 
 app_name = "rnd_nutrition"
-app_title = "R&D Nutrition"
+app_title = "rnd_nutrition"
 app_publisher = "Your Company"
 app_description = "Research and Development for Nutritional Products"
 app_icon = "fa-flask"
@@ -2003,7 +2003,7 @@ override_doctype_class = {
 }
 Would you like me to proceed with any of these methods for the complete module transfer?
 C) Provide individual files that you can copy-paste into your system I think this is the must better
-Individual Files for R&D Nutrition Module
+Individual Files for rnd_nutrition Module
 I'll provide the key files individually that you can copy-paste into your system. Here's the complete module structure with file contents:
 1. Core Module Files
 hooks.py
@@ -2013,7 +2013,7 @@ Download
 from frappe import _
 
 app_name = "rnd_nutrition"
-app_title = "R&D Nutrition"
+app_title = "rnd_nutrition"
 app_publisher = "Your Company"
 app_description = "Research and Development for Nutritional Products"
 app_icon = "fa-flask"
@@ -2091,7 +2091,7 @@ Copy
 Download
 {
   "doctype": "DocType",
-  "module": "R&D Nutrition",
+  "module": "rnd_nutrition",
   "name": "Formulation",
   "is_submittable": 1,
   "track_changes": 1,
@@ -2675,7 +2675,7 @@ Copy
 Download
 {
   "doctype": "DocType",
-  "module": "R&D Nutrition",
+  "module": "rnd_nutrition",
   "name": "Formulation Ingredient",
   "istable": 1,
   "fields": [
@@ -2722,7 +2722,7 @@ Copy
 Download
 {
   "doctype": "DocType",
-  "module": "R&D Nutrition",
+  "module": "rnd_nutrition",
   "name": "Formulation Change Log",
   "istable": 1,
   "fields": [
@@ -2768,7 +2768,7 @@ Copy
 Download
 {
   "doctype": "DocType",
-  "module": "R&D Nutrition",
+  "module": "rnd_nutrition",
   "name": "Change Log Ingredient Reference",
   "istable": 1,
   "fields": [

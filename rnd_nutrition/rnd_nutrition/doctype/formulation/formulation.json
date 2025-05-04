@@ -1,6 +1,6 @@
 {
     "doctype": "DocType",
-    "module": "R&D Nutrition",
+    "module": "rnd_nutrition",
     "name": "Formulation",
     "fields": [
       {

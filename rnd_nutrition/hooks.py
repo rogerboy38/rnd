@@ -4,6 +4,30 @@ app_publisher = "AMB-Wellness"
 app_description = "Research and Development for nutrients AMB-W"
 app_email = "rogelio@amb-wellness.com"
 app_license = "mit"
+#
+# Include JS and CSS files
+app_include_css = "/assets/rnd_nutrition/css/rnd.css"
+app_include_js = "/assets/rnd_nutrition/js/rnd.js"
+
+# Fixtures
+fixtures = [
+    {"dt": "Custom Field", "filters": [["dt", "in", ["Item", "Project"]]]},
+    {"dt": "Workflow", "filters": [["name", "like", "RND%"]]}
+]
+
+# Scheduled Tasks
+scheduler_events = {
+    "daily": [
+        "rnd_nutrition.tasks.daily"
+    ]
+}
+
+# Document Events
+doc_events = {
+    "Item": {
+        "on_update": "rnd_nutrition.api.item_on_update"
+    }
+}
 
 # Apps
 # ------------------

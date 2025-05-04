@@ -1,0 +1,21 @@
+{
+    "doctype": "DocType",
+    "module": "rnd_utrition",
+    "name": "Formulation Ingredient",
+    "istable": 1,
+    "fields": [
+      {
+        "fieldname": "ingredient",
+        "label": "Ingredient",
+        "fieldtype": "Link",
+        "options": "Item",
+        "reqd": 1
+      },
+      {
+        "fieldname": "percentage",
+        "label": "Percentage",
+        "fieldtype": "Float",
+        "reqd": 1
+      }
+    ]
+  }

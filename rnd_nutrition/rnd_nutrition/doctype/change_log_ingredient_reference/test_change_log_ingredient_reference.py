@@ -9,6 +9,7 @@ class TestChangeLogIngredientReference(unittest.TestCase):
                 "doctype": "Item",
                 "item_code": "Test Ingredient",
                 "item_name": "Test Ingredient",
+                "item_group": "All Item Groups",  # Add a valid item group
                 "is_stock_item": 0
             }).insert()
 
