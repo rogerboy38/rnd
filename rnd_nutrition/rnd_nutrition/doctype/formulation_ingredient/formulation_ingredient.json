@@ -16,25 +16,7 @@
       "label": "Percentage",
       "fieldtype": "Float",
       "reqd": 1
-    },
-    {
-      "fieldname": "parent",
-      "label": "Parent",
-      "fieldtype": "Link",
-      "options": "Formulation",
-      "hidden": 1
-    },
-    {
-      "fieldname": "parenttype",
-      "label": "Parent Type",
-      "fieldtype": "Data",
-      "hidden": 1
-    },
-    {
-      "fieldname": "parentfield",
-      "label": "Parent Field",
-      "fieldtype": "Data",
-      "hidden": 1
     }
+
   ]
 }
