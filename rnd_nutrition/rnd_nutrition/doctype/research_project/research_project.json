@@ -1,43 +1,138 @@
 {
-    "doctype": "DocType",
-    "module": "rnd_nutrition",
-    "name": "Research Project",
-    "fields": [
-      {
-        "fieldname": "project_name",
-        "label": "Project Name",
-        "fieldtype": "Data",
-        "reqd": 1
-      },
-      {
-        "fieldname": "description",
-        "label": "Description",
-        "fieldtype": "Text"
-      },
-      {
-        "fieldname": "start_date",
-        "label": "Start Date",
-        "fieldtype": "Date",
-        "reqd": 1
-      },
-      {
-        "fieldname": "end_date",
-        "label": "End Date",
-        "fieldtype": "Date"
-      },
-      {
-        "fieldname": "status",
-        "label": "Status",
-        "fieldtype": "Select",
-        "options": "Planned\nIn Progress\nCompleted\nOn Hold",
-        "reqd": 1
-      },
-      {
-        "fieldname": "related_formulations",
-        "label": "Related Formulations",
-        "fieldtype": "Table",
-        "options": "Formulation",
-        "reqd": 0
-      }
-    ]
+ "actions": [],
+ "creation": "2025-05-09 22:40:07.258958",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "project_name",
+  "description",
+  "start_date",
+  "end_date",
+  "status",
+  "related_formulations"
+ ],
+ "fields": [
+  {
+   "fieldname": "project_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Project Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Start Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Planned\nIn Progress\nCompleted\nOn Hold",
+   "reqd": 1
+  },
+  {
+   "fieldname": "related_formulations",
+   "fieldtype": "Attach",
+   "label": "Related Formulations",
+   "options": "Formulation"
   }
+ ],
+ "links": [],
+ "modified": "2025-05-18 10:51:54.262929",
+ "modified_by": "oscar@amb-wellness.com",
+ "module": "rnd_nutrition",
+ "name": "Research Project",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [
+  {
+   "color": "Blue",
+   "title": "Project Kick off"
+  },
+  {
+   "color": "Blue",
+   "title": "Concept"
+  },
+  {
+   "color": "Blue",
+   "title": "Goal Definition"
+  },
+  {
+   "color": "Blue",
+   "title": "Objectives Definition"
+  },
+  {
+   "color": "Blue",
+   "title": "Milestones Definition"
+  },
+  {
+   "color": "Blue",
+   "title": "Preparation"
+  },
+  {
+   "color": "Blue",
+   "title": "Test Definition"
+  },
+  {
+   "color": "Blue",
+   "title": "Project Plan"
+  },
+  {
+   "color": "Blue",
+   "title": "Execution"
+  },
+  {
+   "color": "Blue",
+   "title": "Test first try"
+  },
+  {
+   "color": "Blue",
+   "title": "Test Documentation"
+  },
+  {
+   "color": "Blue",
+   "title": "Try outs"
+  },
+  {
+   "color": "Blue",
+   "title": "Try outs Documentation"
+  },
+  {
+   "color": "Blue",
+   "title": "Release Plan"
+  },
+  {
+   "color": "Blue",
+   "title": "Formulation Definition"
+  },
+  {
+   "color": "Blue",
+   "title": "Release Documentation"
+  },
+  {
+   "color": "Blue",
+   "title": "Project Closing"
+  },
+  {
+   "color": "Blue",
+   "title": "Lessons Learned"
+  }
+ ]
+}

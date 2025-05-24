@@ -5,6 +5,7 @@ app_description = "Research and Development for nutrients AMB-W"
 app_email = "rogelio@amb-wellness.com"
 app_license = "mit"
 #
+has_sidebar = True
 # Include JS and CSS files
 app_include_css = "/assets/rnd_nutrition/css/rnd.css"
 app_include_js = "/assets/rnd_nutrition/js/rnd.js"
