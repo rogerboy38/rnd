@@ -262,3 +262,27 @@ doc_events = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+from frappe import _
+
+def get_data():
+    return [
+        {
+            "label": _("Your R&D Application"),
+            "icon": "icon-lightbulb",  # or any other icon
+            "items": [
+                {
+                    "type": "doctype",
+                    "name": "Your First Doctype",
+                    "label": _("First Doctype"),
+                    "description": _("Description of your first doctype"),
+                },
+                {
+                    "type": "doctype",
+                    "name": "Your Second Doctype",
+                    "label": _("Second Doctype"),
+                    "description": _("Description of your second doctype"),
+                },
+                # Add more items as needed
+            ]
+        }
+    ]
