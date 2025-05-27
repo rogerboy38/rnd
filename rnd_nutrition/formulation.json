@@ -1,0 +1,11 @@
+{
+    "fields": [
+        {
+            "fieldname": "change_log",
+            "label": "Change Log",
+            "fieldtype": "Table",
+            "options": "Formulation Change Log",
+            "read_only": 1
+        }
+    ]
+}

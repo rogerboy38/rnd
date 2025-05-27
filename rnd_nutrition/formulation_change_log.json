@@ -1,0 +1,24 @@
+{
+    "doctype": "DocType",
+    "name": "Formulation Change Log",
+    "is_submittable": 0,
+    "istable": 1,  // THIS IS CRUCIAL - marks it as a child table
+    "fields": [
+        {
+            "fieldname": "date",
+            "label": "Date",
+            "fieldtype": "Date"
+        },
+        {
+            "fieldname": "changed_by",
+            "label": "Changed By",
+            "fieldtype": "Link",
+            "options": "User"
+        },
+        {
+            "fieldname": "changes",
+            "label": "Changes",
+            "fieldtype": "Text"
+        }
+    ]
+}
