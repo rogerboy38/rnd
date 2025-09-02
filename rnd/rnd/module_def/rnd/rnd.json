@@ -1,0 +1,15 @@
+{
+ "app_name": "frappe",
+ "creation": "2025-07-04 12:55:20.210141",
+ "custom": 1,
+ "docstatus": 0,
+ "doctype": "Module Def",
+ "idx": 0,
+ "modified": "2025-07-04 12:55:20.210141",
+ "modified_by": "Administrator",
+ "module_name": "RND",
+ "name": "RND",
+ "owner": "Administrator",
+ "package": "RND Nutrition",
+ "restrict_to_domain": "rnd_nutrition"
+}

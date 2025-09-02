@@ -1,0 +1,77 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-08-06 15:18:01.071135",
+ "custom": 1,
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "factors_section",
+  "amb_factor_column",
+  "factor_name",
+  "factor_value",
+  "factor_data_year",
+  "base_of_calculation_method",
+  "calculated_factor_value",
+  "text_editor_iexb"
+ ],
+ "fields": [
+  {
+   "fieldname": "factors_section",
+   "fieldtype": "Section Break",
+   "label": "Factors"
+  },
+  {
+   "fieldname": "amb_factor_column",
+   "fieldtype": "Column Break",
+   "label": "AMB Factor "
+  },
+  {
+   "fieldname": "factor_name",
+   "fieldtype": "Data",
+   "label": "Factor Name"
+  },
+  {
+   "fieldname": "factor_value",
+   "fieldtype": "Float",
+   "label": "Factor Value"
+  },
+  {
+   "fieldname": "factor_data_year",
+   "fieldtype": "Int",
+   "label": "Factor Data Year ",
+   "options": "2024\n2025\n2026\n2027\n2028\n2029\n2030\n2031\n2032\n2033"
+  },
+  {
+   "fieldname": "base_of_calculation_method",
+   "fieldtype": "Select",
+   "label": "Base of Calculation Method",
+   "options": "Automatic\nManual"
+  },
+  {
+   "fieldname": "calculated_factor_value",
+   "fieldtype": "Float",
+   "label": "Calculated Factor Value"
+  },
+  {
+   "fieldname": "text_editor_iexb",
+   "fieldtype": "Text Editor",
+   "label": "Creiterio / Actualizacion de Criterios"
+  }
+ ],
+ "grid_page_length": 100,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-08-07 12:15:53.492731",
+ "modified_by": "Administrator",
+ "module": "AMB KPI Management",
+ "name": "AMB Cost Factors",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

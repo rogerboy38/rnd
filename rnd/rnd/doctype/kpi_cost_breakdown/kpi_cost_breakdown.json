@@ -1,0 +1,83 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-08-06 17:20:38.823771",
+ "custom": 1,
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "kpi_cost_breakdown_section",
+  "amb_factor_column",
+  "cost_center",
+  "description",
+  "ammount",
+  "percentage",
+  "reference",
+  "reference_document"
+ ],
+ "fields": [
+  {
+   "fieldname": "kpi_cost_breakdown_section",
+   "fieldtype": "Section Break",
+   "label": "KPI Cost Breakdown"
+  },
+  {
+   "fieldname": "amb_factor_column",
+   "fieldtype": "Column Break",
+   "label": "Production Costs"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center"
+  },
+  {
+   "description": "E.g., Water Consumption",
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "Description"
+  },
+  {
+   "description": "From Source Docs",
+   "fieldname": "ammount",
+   "fieldtype": "Currency",
+   "label": "Ammount"
+  },
+  {
+   "description": "Auto-calculated",
+   "fieldname": "percentage",
+   "fieldtype": "Percent",
+   "label": "Percentage"
+  },
+  {
+   "description": "Link to source Document\n\"Select the source document type (e.g., Factores)\"",
+   "fieldname": "reference",
+   "fieldtype": "Link",
+   "label": "Reference",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "reference_document",
+   "fieldtype": "Dynamic Link",
+   "label": "Reference Document",
+   "options": "reference"
+  }
+ ],
+ "grid_page_length": 100,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-08-06 17:36:42.241977",
+ "modified_by": "Administrator",
+ "module": "RND",
+ "name": "KPI Cost Breakdown",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,15 @@
+{
+ "creation": "2025-08-20 22:38:35.625515",
+ "docstatus": 0,
+ "doctype": "Client Script",
+ "dt": "Batch AMB",
+ "enabled": 0,
+ "idx": 0,
+ "modified": "2025-08-21 09:51:18.147296",
+ "modified_by": "Administrator",
+ "module": "RND",
+ "name": "batch_node",
+ "owner": "Administrator",
+ "script": "// Add new node\r\nfrappe.call({\r\n    method: \"sysmayal.v.frappe.cloud.batch_amb_custom_tree_apibatch_amb_custom_tree_api.add_batch_node\",\r\n    args: {\r\n        doctype: \"Batch AMB\",\r\n        is_group: 0,\r\n        work_order_ref: \"MFG-WO-00325\",\r\n        parent: \"LOTE-00002\",\r\n        is_root: true\r\n    },\r\n    callback: function(response) {\r\n        // Handle response\r\n    }\r\n});\r\n\r\n// Get children\r\nfrappe.call({\r\n    method: \"batch_amb_custom_tree_api.get_batch_children\",\r\n    args: { parent: parent_node },\r\n    callback: function(response) {\r\n        // Build tree from response\r\n    }\r\n});\r\n\r\n// Rebuild tree (if needed)\r\nfrappe.call({\r\n    method: \"batch_amb_custom_tree_api.rebuild_batch_tree\",\r\n    callback: function(response) {\r\n        console.log(response.message);\r\n    }\r\n});",
+ "view": "Form"
+}

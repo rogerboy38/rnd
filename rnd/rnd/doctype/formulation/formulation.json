@@ -1,0 +1,50 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "RND-FRM-YY-####",
+ "creation": "2025-07-04 13:45:54.307439",
+ "custom": 1,
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_kyfd",
+  "formulation_name",
+  "purpose"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_kyfd",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "formulation_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Formulation Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "purpose",
+   "fieldtype": "Markdown Editor",
+   "in_list_view": 1,
+   "label": "Intended Purpose",
+   "options": "Animal Nutrition\\nHuman Food\\nAgricultural Application\\nPlant Nutrition"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-07-04 14:02:00.506093",
+ "modified_by": "Administrator",
+ "module": "RND",
+ "name": "Formulation",
+ "naming_rule": "Set by user",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

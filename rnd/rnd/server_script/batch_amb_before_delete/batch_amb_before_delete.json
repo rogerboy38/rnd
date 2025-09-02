@@ -1,0 +1,20 @@
+{
+ "allow_guest": 0,
+ "creation": "2025-08-20 22:13:30.322349",
+ "disabled": 1,
+ "docstatus": 0,
+ "doctype": "Server Script",
+ "doctype_event": "Before Delete",
+ "enable_rate_limit": 0,
+ "event_frequency": "All",
+ "idx": 0,
+ "modified": "2025-08-21 08:48:30.073518",
+ "modified_by": "Administrator",
+ "module": "RND",
+ "name": "Batch AMB Before Delete",
+ "owner": "Administrator",
+ "rate_limit_count": 5,
+ "rate_limit_seconds": 86400,
+ "reference_doctype": "Batch AMB",
+ "script_type": "DocType Event"
+}

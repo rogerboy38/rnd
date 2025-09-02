@@ -1,0 +1,256 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "prompt",
+ "creation": "2025-07-16 21:39:12.108836",
+ "custom": 1,
+ "default_print_format": "TDS Print Design 3",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tds_product_specifications_section",
+  "naming_series",
+  "column_break_lwmn",
+  "section_break_yikz",
+  "product_item",
+  "item_name",
+  "item_code",
+  "column_break_pqoj",
+  "approval_date",
+  "tds_settings",
+  "tds_naming_series",
+  "tds_version",
+  "tds_sequence",
+  "section_break_anhf",
+  "item_quality_inspection_parameter",
+  "section_break_vjkv",
+  "cas_number",
+  "inci_name",
+  "shelf_life",
+  "packaging",
+  "storage_and_handling_conditions",
+  "formula_based_criteria",
+  "custom_version",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "tds_product_specifications_section",
+   "fieldtype": "Section Break",
+   "label": "TDS Product Specifications"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "TDS Product Specifications Nr.",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_lwmn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_yikz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "description": "Links to Item Master (e.g., 0227 for Aloe Concentrate)",
+   "fieldname": "product_item",
+   "fieldtype": "Link",
+   "label": "Product Item",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "product_item.item_name",
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name",
+   "options": "Item"
+  },
+  {
+   "fetch_from": "product_item.item_code",
+   "fieldname": "item_code",
+   "fieldtype": "Data",
+   "label": "Item Code",
+   "options": "Item"
+  },
+  {
+   "fieldname": "column_break_pqoj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "approval_date",
+   "fieldtype": "Date",
+   "label": "Approval Date"
+  },
+  {
+   "fieldname": "tds_settings",
+   "fieldtype": "Link",
+   "label": "Last TDS Settings Version Control",
+   "options": "TDS Settings"
+  },
+  {
+   "fieldname": "tds_naming_series",
+   "fieldtype": "Data",
+   "label": "TDS Naming Series"
+  },
+  {
+   "fieldname": "tds_version",
+   "fieldtype": "Data",
+   "label": "TDS Version Counter"
+  },
+  {
+   "default": "0",
+   "fieldname": "tds_sequence",
+   "fieldtype": "Int",
+   "label": "TDS Sequence number"
+  },
+  {
+   "fieldname": "section_break_anhf",
+   "fieldtype": "Section Break",
+   "label": "Parameters"
+  },
+  {
+   "columns": 10,
+   "fieldname": "item_quality_inspection_parameter",
+   "fieldtype": "Table",
+   "label": "Item Quality Inspection Parameter",
+   "options": "Item Quality Inspection Parameter",
+   "print_width": "80",
+   "reqd": 1,
+   "width": "80"
+  },
+  {
+   "fieldname": "section_break_vjkv",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "cas_number",
+   "fieldtype": "Select",
+   "label": "CAS Number",
+   "options": "85507-69-3\n85507-69-3"
+  },
+  {
+   "fieldname": "inci_name",
+   "fieldtype": "Select",
+   "label": " INCI Name",
+   "options": "ALOE BARBADENSIS LEAF JUICE\nALOE BARBADENSIS LEAF JUICE POWDER"
+  },
+  {
+   "default": " 6 months after date of production when refrigerated from 0\u00b0C - 2\u00b0C in an unopened container and out of the exposure of the sunlight to avoid oxidation. 12 months after date of production when frozen at -18\u00b0C in an unopened container and out of the exposure of the sunlight to avoid oxidation . Once the packaging of any Aloe Vera product is opened the product enters into contact with air's humidity and microbes, so it is recommended to use the whole product amount to avoid the spoilage of it. As it is natural product it may change color and precipitation can occur after a period of time.",
+   "fieldname": "shelf_life",
+   "fieldtype": "Text Editor",
+   "label": "SHELF LIFE:"
+  },
+  {
+   "default": "Standard packaging: HDPE drum, closed top, Food grade FDA approved.",
+   "fieldname": "packaging",
+   "fieldtype": "Text Editor",
+   "label": "PACKAGING"
+  },
+  {
+   "default": " In case the whole product is not used, it is recommended to store it in a refrigerated warehouse at a temperature of 0\u00b0 to 2\u00b0 C or  \nfrozen at -18\u00b0C until the next use. We strongly suggest not to take back to the original container unused portions of the product  \nthat have been exposed to the environment.\n Once the packaging of the product is opened, shelf life is not guaranteed and it is the costumer's responsibility to avoid spoilage.\n Aseptic techniques are mandatory for sampling and industrial use",
+   "fieldname": "storage_and_handling_conditions",
+   "fieldtype": "Text Editor",
+   "label": "STORAGE AND HANDLING CONDITIONS"
+  },
+  {
+   "default": "*DETERMINED IN A 0.5% TOTAL SOLIDS SOLUTION.",
+   "fieldname": "formula_based_criteria",
+   "fieldtype": "Text",
+   "label": "Formula Based Criteria"
+  },
+  {
+   "fieldname": "custom_version",
+   "fieldtype": "Data",
+   "label": "Custom Version",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "TDS Product Specification",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "is_submittable": 1,
+ "links": [
+  {
+   "group": "Quality Inspection",
+   "link_doctype": "Quality Inspection",
+   "link_fieldname": "quality_inspection_template"
+  }
+ ],
+ "modified": "2025-08-08 20:32:53.805930",
+ "modified_by": "Administrator",
+ "module": "RND",
+ "name": "TDS Product Specification",
+ "naming_rule": "Set by user",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Stock User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Quality Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Manufacturing User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "show_name_in_global_search": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

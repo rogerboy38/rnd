@@ -1,0 +1,224 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2025-08-30 18:33:29.239767",
+ "custom": 1,
+ "default_print_format": "COA AMB",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "column_break_tefy",
+  "linked_tds",
+  "product_information",
+  "product_item",
+  "item_name",
+  "item_code",
+  "column_break_cure",
+  "approval_date",
+  "tds_settings",
+  "tds_naming_series",
+  "tds_version",
+  "tds_sequence",
+  "section_break_anhf",
+  "coa_quality_test_parameter",
+  "section_break_zmmw",
+  "cas_number",
+  "inci_name",
+  "shelf_life",
+  "packaging",
+  "storage_and_handling_conditions",
+  "formula_based_criteria",
+  "autrizaci\u00f3n",
+  "custom_version",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "COA-.YY.-.####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "COA AMB Nr.",
+   "options": "COA-.YY.-.####"
+  },
+  {
+   "fieldname": "column_break_tefy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "linked_tds",
+   "fieldtype": "Link",
+   "label": "TDS Product Specification",
+   "options": "TDS Product Specification"
+  },
+  {
+   "fieldname": "product_information",
+   "fieldtype": "Section Break",
+   "label": "Product Information"
+  },
+  {
+   "description": "Links to Item Master (e.g., 0227 for Aloe Concentrate)",
+   "fetch_from": "linked_tds.product_item",
+   "fieldname": "product_item",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Product Item",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "linked_tds.item_name",
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name"
+  },
+  {
+   "fetch_from": "linked_tds.item_code",
+   "fieldname": "item_code",
+   "fieldtype": "Data",
+   "label": "Item Code"
+  },
+  {
+   "fieldname": "column_break_cure",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "linked_tds.approval_date",
+   "fieldname": "approval_date",
+   "fieldtype": "Date",
+   "label": "Approval Date"
+  },
+  {
+   "fetch_from": "linked_tds.tds_settings",
+   "fieldname": "tds_settings",
+   "fieldtype": "Data",
+   "label": "Last TDS Settings Version Control",
+   "options": "TDS Settings"
+  },
+  {
+   "fetch_from": "linked_tds.tds_naming_series",
+   "fieldname": "tds_naming_series",
+   "fieldtype": "Data",
+   "label": "TDS Naming Series"
+  },
+  {
+   "fetch_from": "linked_tds.tds_version",
+   "fieldname": "tds_version",
+   "fieldtype": "Data",
+   "label": "TDS Version Counter"
+  },
+  {
+   "fetch_from": "linked_tds.tds_sequence",
+   "fieldname": "tds_sequence",
+   "fieldtype": "Data",
+   "label": "TDS Sequence number"
+  },
+  {
+   "fieldname": "section_break_anhf",
+   "fieldtype": "Section Break",
+   "label": "TDS Product Specification and COA Quality Test Parameter"
+  },
+  {
+   "columns": 10,
+   "fieldname": "coa_quality_test_parameter",
+   "fieldtype": "Table",
+   "label": "COA Quality Test Parameter",
+   "options": "COA Quality Test Parameter",
+   "print_width": "80",
+   "reqd": 1,
+   "width": "80"
+  },
+  {
+   "fieldname": "section_break_zmmw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "linked_tds.cas_number",
+   "fieldname": "cas_number",
+   "fieldtype": "Data",
+   "label": "CAS Number"
+  },
+  {
+   "fetch_from": "linked_tds.inci_name",
+   "fieldname": "inci_name",
+   "fieldtype": "Data",
+   "label": "INCI Name"
+  },
+  {
+   "fetch_from": "linked_tds.shelf_life",
+   "fieldname": "shelf_life",
+   "fieldtype": "Text Editor",
+   "label": "SHELF LIFE:"
+  },
+  {
+   "fetch_from": "linked_tds.packaging",
+   "fieldname": "packaging",
+   "fieldtype": "Text Editor",
+   "label": "PACKAGING"
+  },
+  {
+   "default": "In case the whole product is not used, it is recommended to store it in a refrigerated warehouse at a temperature of 0\u00b0 to 2\u00b0 C or  \nfrozen at -18\u00b0C until the next use. We strongly suggest not to take back to the original container unused portions of the product  \nthat have been exposed to the environment.\n Once the packaging of the product is opened, shelf life is not guaranteed and it is the costumer's responsibility to avoid spoilage.\n Aseptic techniques are mandatory for sampling and industrial use",
+   "fetch_from": "linked_tds.storage_and_handling_conditions",
+   "fieldname": "storage_and_handling_conditions",
+   "fieldtype": "Text Editor",
+   "label": "STORAGE AND HANDLING CONDITIONS"
+  },
+  {
+   "description": "Rewrite if needed",
+   "fetch_from": "linked_tds.formula_based_criteria",
+   "fieldname": "formula_based_criteria",
+   "fieldtype": "Text",
+   "label": "Formula Based Criteria"
+  },
+  {
+   "fieldname": "autrizaci\u00f3n",
+   "fieldtype": "Signature",
+   "label": "Autrizaci\u00f3n"
+  },
+  {
+   "fieldname": "custom_version",
+   "fieldtype": "Data",
+   "label": "Custom Version"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Data",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "COA AMB2",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-08-30 21:26:22.367458",
+ "modified_by": "fcrm@amb-wellness.com",
+ "module": "RND",
+ "name": "COA AMB",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "fcrm@amb-wellness.com",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

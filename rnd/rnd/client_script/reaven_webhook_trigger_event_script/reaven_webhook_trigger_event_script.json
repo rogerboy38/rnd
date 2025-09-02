@@ -1,0 +1,15 @@
+{
+ "creation": "2025-08-09 12:58:08.190090",
+ "docstatus": 0,
+ "doctype": "Client Script",
+ "dt": "Raven Webhook Handler",
+ "enabled": 1,
+ "idx": 0,
+ "modified": "2025-08-09 13:23:55.112875",
+ "modified_by": "Administrator",
+ "module": "RND",
+ "name": "Reaven Webhook Trigger Event Script",
+ "owner": "Administrator",
+ "script": "frappe.ui.form.on('Raven Webhook Handler', {\r\n    refresh(frm) {\r\n        // Initialize default events if empty\r\n        if (!frm.doc.__islocal && (!frm.doc.trigger_events || frm.doc.trigger_events.length === 0)) {\r\n            frm.clear_table('trigger_events');\r\n            ['After Insert', 'After Update'].forEach(event => {\r\n                let row = frm.add_child('trigger_events', {\r\n                    event: event,\r\n                    enabled: 1,\r\n                    webhook_handler: frm.doc.name\r\n                });\r\n            });\r\n            frm.refresh_field('trigger_events');\r\n        }\r\n    }\r\n});\r\n\r\n// Handle the link field in child table\r\nfrappe.ui.form.on('Webhook Trigger Event', {\r\n    webhook_handler(frm, cdt, cdn) {\r\n        let row = frappe.get_doc(cdt, cdn);\r\n        if (!row.webhook_handler) {\r\n            frappe.model.set_value(cdt, cdn, 'webhook_handler', frm.doc.name);\r\n        }\r\n    }\r\n});\r\n// In Sales Order form script\r\nfrappe.ui.form.on('Sales Order', {\r\n    refresh(frm) {\r\n        frm.add_custom_button(__('Trigger Webhook'), () => {\r\n            frappe.call({\r\n                method: 'your_app.webhooks.manual_trigger',\r\n                args: { docname: frm.doc.name }\r\n            })\r\n        })\r\n    }\r\n});",
+ "view": "Form"
+}

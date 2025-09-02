@@ -1,0 +1,15 @@
+{
+ "creation": "2025-08-20 22:39:23.652441",
+ "docstatus": 0,
+ "doctype": "Client Script",
+ "dt": "Batch AMB",
+ "enabled": 0,
+ "idx": 0,
+ "modified": "2025-08-21 09:51:23.200844",
+ "modified_by": "Administrator",
+ "module": "RND",
+ "name": "batch_node2",
+ "owner": "Administrator",
+ "script": "// Add new batch node - use this instead of frappe.desk.treeview.add_node\r\nfrappe.call({\r\n    method: \"add_batch_node\",\r\n    args: {\r\n        doctype: \"Batch AMB\",\r\n        is_group: 0,\r\n        work_order_ref: \"MFG-WO-00325\",\r\n        parent: \"LOTE-00002\",\r\n        is_root: true\r\n    },\r\n    callback: function(response) {\r\n        if (response.message) {\r\n            console.log(\"Batch created successfully:\", response.message);\r\n            // Refresh your tree view here\r\n        } else if (response.exc) {\r\n            console.error(\"Error creating batch:\", response.exc);\r\n        }\r\n    }\r\n});\r\n\r\n// Get children for tree view\r\nfrappe.call({\r\n    method: \"get_batch_children\",\r\n    args: { parent: \"LOTE-00002\" },\r\n    callback: function(response) {\r\n        if (response.message) {\r\n            console.log(\"Children:\", response.message);\r\n            // Build your tree view with this data\r\n        }\r\n    }\r\n});",
+ "view": "Form"
+}

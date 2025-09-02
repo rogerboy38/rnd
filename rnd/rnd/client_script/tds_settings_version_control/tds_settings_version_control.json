@@ -1,0 +1,15 @@
+{
+ "creation": "2025-08-05 18:22:00.497153",
+ "docstatus": 0,
+ "doctype": "Client Script",
+ "dt": "TDS Settings",
+ "enabled": 1,
+ "idx": 0,
+ "modified": "2025-08-05 19:45:28.713445",
+ "modified_by": "Administrator",
+ "module": "RND",
+ "name": "TDS Settings Version Control",
+ "owner": "Administrator",
+ "script": "frappe.ui.form.on('TDS Settings', {\r\n    refresh: function(frm) {\r\n        frm.add_custom_button(__('Generate Version'), function() {\r\n            // Validate required fields exist\r\n            if (!frm.doc.naming_series) {\r\n                frappe.msgprint(__('Naming Series is required'));\r\n                return;\r\n            }\r\n            if (!frm.doc.tds_version_counter) {\r\n                frappe.msgprint(__('Version Counter is required'));\r\n                return;\r\n            }\r\n            if (!frm.doc.item_code) {\r\n                frappe.msgprint(__('Item Code is required'));\r\n                return;\r\n            }\r\n            if (frm.doc.tds_series_counter === undefined || frm.doc.tds_series_counter === null) {\r\n                frappe.msgprint(__('Series Counter is required'));\r\n                return;\r\n            }\r\n\r\n            // Extract all digits from naming series (e.g., \"1707\" from \"TDS-1707\")\r\n            const allDigits = frm.doc.name.replace(/\\D/g, '');\r\n            \r\n            // Validate we have at least 4 digits\r\n            if (allDigits.length < 4) {\r\n                frappe.msgprint(__('Naming Series must contain at least 4 digits', allDigits));\r\n                return;\r\n            }\r\n\r\n            // Get last 4 digits\r\n            const last_four = allDigits.slice(-4);\r\n\r\n            // Generate current date components\r\n            const today = new Date();\r\n            const yy = today.getFullYear().toString().slice(-2);\r\n            const mm = String(today.getMonth() + 1).padStart(2, '0');\r\n            const dd = String(today.getDate()).padStart(2, '0');\r\n\r\n            // Create version string\r\n            const version = `V${frm.doc.tds_version_counter}-${frm.doc.item_code}-Date:${yy}/${mm}/${dd}*${frm.doc.tds_series_counter}${last_four}`;\r\n\r\n            // Update the field and show success\r\n            frm.set_value('tds_naming_series', version);\r\n            frappe.show_alert({\r\n                message: __('Version generated successfully'),\r\n                indicator: 'green'\r\n            });\r\n        }).addClass('btn-primary');\r\n    }\r\n});",
+ "view": "Form"
+}

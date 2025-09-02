@@ -1,0 +1,440 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2025-07-26 13:33:36.448112",
+ "custom": 1,
+ "default_view": "List",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "main_batch_tab",
+  "batch_info_section",
+  "naming_series",
+  "title",
+  "work_order_ref",
+  "sales_order_related",
+  "wo_item_name",
+  "item_to_manufacture",
+  "production_plant_name",
+  "column_break_gnwk",
+  "consecutive_number",
+  "custom_generated_batch_name",
+  "wo_start_date",
+  "expiry_date",
+  "tds_specification_section",
+  "tds_link",
+  "tds_item_name",
+  "item_code",
+  "tds_info",
+  "column_break_ctlv",
+  "coa_amb",
+  "level_2__sub_lots_management_tab",
+  "batch_level_info_column",
+  "custom_batch_level",
+  "parent_batch_amb",
+  "old_parent",
+  "is_group",
+  "lft",
+  "rgt",
+  "custom_batch_year",
+  "custom_plant_code",
+  "custom_consecutive_number",
+  "custom_sublot_consecutive",
+  "column_break_joup",
+  "containers_management_tab",
+  "container_level_3_section",
+  "container_barrels",
+  "section_break_llrj",
+  "total_gross_weight",
+  "column_break_zspb",
+  "total_tara_weight",
+  "column_break_xgwz",
+  "total_net_weight",
+  "column_break_sfat",
+  "barrel_count",
+  "reports_and_analytics_tab",
+  "scan_tab",
+  "barcode_scan_section",
+  "quick_barcode_scan",
+  "default_packaging_type",
+  "visibility_logic_tab",
+  "visibility1_section",
+  "batch_viewer"
+ ],
+ "fields": [
+  {
+   "fieldname": "main_batch_tab",
+   "fieldtype": "Tab Break",
+   "label": "Main Batch"
+  },
+  {
+   "fieldname": "batch_info_section",
+   "fieldtype": "Section Break",
+   "label": "Batch Info"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "naming_series",
+   "length": 20,
+   "options": "LOTE-.#####"
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "length": 20
+  },
+  {
+   "fieldname": "work_order_ref",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Batch ID General Lot Work Order Ref",
+   "options": "Work Order",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "work_order_ref.sales_order",
+   "fieldname": "sales_order_related",
+   "fieldtype": "Data",
+   "label": "Sales Order Related "
+  },
+  {
+   "fetch_from": "work_order_ref.item_name",
+   "fieldname": "wo_item_name",
+   "fieldtype": "Data",
+   "label": "Work Order Item Name"
+  },
+  {
+   "fetch_from": "work_order_ref.production_item",
+   "fieldname": "item_to_manufacture",
+   "fieldtype": "Data",
+   "label": "Item to Manufacture",
+   "options": "Work Order Item"
+  },
+  {
+   "bold": 1,
+   "fetch_from": "work_order_ref.custom_plant_code",
+   "fieldname": "production_plant_name",
+   "fieldtype": "Data",
+   "label": "Production Plant Name"
+  },
+  {
+   "fieldname": "column_break_gnwk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "consecutive_number",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Consecutive Number",
+   "length": 3
+  },
+  {
+   "fieldname": "custom_generated_batch_name",
+   "fieldtype": "Data",
+   "label": "Generated Batch Name"
+  },
+  {
+   "fetch_from": "work_order_ref.actual_start_date",
+   "fieldname": "wo_start_date",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "fetch_from": "work_order_ref.actual_start_date",
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "label": "Expiry Date"
+  },
+  {
+   "fieldname": "tds_specification_section",
+   "fieldtype": "Section Break",
+   "label": "TDS Specification"
+  },
+  {
+   "fieldname": "tds_link",
+   "fieldtype": "Link",
+   "label": "TDS Product Specifications Nr.",
+   "options": "TDS Product Specification"
+  },
+  {
+   "fetch_from": "tds_link.item_name",
+   "fieldname": "tds_item_name",
+   "fieldtype": "Data",
+   "label": "TDS Item Name"
+  },
+  {
+   "fetch_from": "tds_link.item_code",
+   "fieldname": "item_code",
+   "fieldtype": "Data",
+   "label": "Item Code"
+  },
+  {
+   "fetch_from": "tds_link.product_item",
+   "fieldname": "tds_info",
+   "fieldtype": "Data",
+   "label": "Tds Info Product Item "
+  },
+  {
+   "fieldname": "column_break_ctlv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "coa_amb",
+   "fieldtype": "Link",
+   "label": "COA AMB",
+   "options": "COA AMB2"
+  },
+  {
+   "fieldname": "level_2__sub_lots_management_tab",
+   "fieldtype": "Tab Break",
+   "label": "Level 2  Sub Lots Management"
+  },
+  {
+   "fieldname": "batch_level_info_column",
+   "fieldtype": "Column Break",
+   "label": "Batch Level Info"
+  },
+  {
+   "default": "1",
+   "fieldname": "custom_batch_level",
+   "fieldtype": "Select",
+   "label": "Batch Level",
+   "options": "1\n2\n3\n4"
+  },
+  {
+   "fieldname": "parent_batch_amb",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Parent Batch AMB",
+   "options": "Batch AMB"
+  },
+  {
+   "fieldname": "old_parent",
+   "fieldtype": "Link",
+   "label": "Old Parent",
+   "options": "Batch AMB"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "label": "Is Group"
+  },
+  {
+   "fieldname": "lft",
+   "fieldtype": "Int",
+   "label": "Left"
+  },
+  {
+   "fieldname": "rgt",
+   "fieldtype": "Int",
+   "label": "Right"
+  },
+  {
+   "fieldname": "custom_batch_year",
+   "fieldtype": "Data",
+   "label": "Batch Year"
+  },
+  {
+   "fetch_from": "default_packaging_type.custom_plant_code1",
+   "fieldname": "custom_plant_code",
+   "fieldtype": "Data",
+   "label": "Plant Code"
+  },
+  {
+   "fieldname": "custom_consecutive_number",
+   "fieldtype": "Data",
+   "label": "Consecutive Number"
+  },
+  {
+   "fieldname": "custom_sublot_consecutive",
+   "fieldtype": "Data",
+   "label": "Sublot Consecutive"
+  },
+  {
+   "fieldname": "column_break_joup",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "containers_management_tab",
+   "fieldtype": "Tab Break",
+   "label": "Containers Management"
+  },
+  {
+   "fieldname": "container_level_3_section",
+   "fieldtype": "Section Break",
+   "label": "Container Level 3"
+  },
+  {
+   "fieldname": "container_barrels",
+   "fieldtype": "Table",
+   "label": "Container Barrels",
+   "options": "Container Barrels"
+  },
+  {
+   "fieldname": "section_break_llrj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_gross_weight",
+   "fieldtype": "Float",
+   "label": "Total Gross Weight",
+   "precision": "3"
+  },
+  {
+   "fieldname": "column_break_zspb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_tara_weight",
+   "fieldtype": "Float",
+   "label": "Total Tara Weight",
+   "precision": "3"
+  },
+  {
+   "fieldname": "column_break_xgwz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_net_weight",
+   "fieldtype": "Float",
+   "label": "Total Net Weight",
+   "precision": "3"
+  },
+  {
+   "fieldname": "column_break_sfat",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "barrel_count",
+   "fieldtype": "Int",
+   "label": "Barrel Count",
+   "length": 3
+  },
+  {
+   "fieldname": "reports_and_analytics_tab",
+   "fieldtype": "Tab Break",
+   "label": "Reports and Analytics"
+  },
+  {
+   "fieldname": "scan_tab",
+   "fieldtype": "Tab Break",
+   "label": "Scan"
+  },
+  {
+   "fieldname": "barcode_scan_section",
+   "fieldtype": "Section Break",
+   "label": "Barcode Scan"
+  },
+  {
+   "fieldname": "quick_barcode_scan",
+   "fieldtype": "Barcode",
+   "label": "Quick Barcode Scan"
+  },
+  {
+   "fieldname": "default_packaging_type",
+   "fieldtype": "Link",
+   "label": "Default Packaging Type",
+   "options": "Item"
+  },
+  {
+   "fieldname": "visibility_logic_tab",
+   "fieldtype": "Tab Break",
+   "label": "Visibility Logic"
+  },
+  {
+   "fieldname": "visibility1_section",
+   "fieldtype": "Section Break",
+   "label": "Visibility1"
+  },
+  {
+   "default": "// Show/Hide tabs based on batch level and permissions\nfrappe.ui.form.on('Batch AMB', {\n    refresh(frm) {\n        // Level 1: Always show Tab 1, conditionally show others\n        if (frm.doc.level === 1) {\n            frm.toggle_display('level_2_section', frm.doc.__islocal ? false : true);\n            frm.toggle_display('level_3_section', frm.doc.__islocal ? false : true);\n        }\n        \n        // Level 2: Show tabs 1, 2, and conditionally 3\n        if (frm.doc.level === 2) {\n            frm.toggle_display('level_2_section', true);\n            frm.toggle_display('level_3_section', frm.doc.__islocal ? false : true);\n        }\n        \n        // Level 3: Show all tabs\n        if (frm.doc.level === 3) {\n            frm.toggle_display('level_2_section', true);\n            frm.toggle_display('level_3_section', true);\n        }\n        \n        // Reports tab: Always visible for saved documents\n        frm.toggle_display('reports_section', !frm.doc.__islocal);\n    }\n});",
+   "fieldname": "batch_viewer",
+   "fieldtype": "Code",
+   "label": "Batch Viewer"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_tree": 1,
+ "links": [],
+ "modified": "2025-08-30 23:26:49.406633",
+ "modified_by": "fcrm@amb-wellness.com",
+ "module": "RND",
+ "name": "Batch AMB",
+ "naming_rule": "By script",
+ "nsm_parent_field": "parent_batch_amb",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "RND Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System RND",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Manufacturing Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Manufacturing User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "search_fields": "title,custom_generated_batch_name,work_order_ref",
+ "show_name_in_global_search": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "title"
+}

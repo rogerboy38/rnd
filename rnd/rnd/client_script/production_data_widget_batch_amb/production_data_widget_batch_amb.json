@@ -1,0 +1,15 @@
+{
+ "creation": "2025-08-30 23:44:24.875604",
+ "docstatus": 0,
+ "doctype": "Client Script",
+ "dt": "Batch AMB",
+ "enabled": 1,
+ "idx": 0,
+ "modified": "2025-08-31 00:13:58.400204",
+ "modified_by": "fcrm@amb-wellness.com",
+ "module": "RND",
+ "name": "Production data widget Batch AMB",
+ "owner": "fcrm@amb-wellness.com",
+ "script": "// Temporary version with sample data for testing\r\nfunction update_batch_announcements() {\r\n    console.log('\ud83d\udd04 Fetching Batch AMB data...');\r\n    \r\n    // First try to get real data\r\n    frappe.call({\r\n        method: 'frappe.client.get_list',\r\n        args: {\r\n            doctype: 'Batch AMB',\r\n            fields: ['name', 'title', 'wo_start_date'],\r\n            limit: 10\r\n        },\r\n        callback: function(r) {\r\n            if (r.message && r.message.length > 0) {\r\n                console.log('\u2705 Found real batches:', r.message.length);\r\n                process_batch_data(r.message);\r\n            } else {\r\n                console.log('\u2139\ufe0f No real batches found, showing sample data');\r\n                show_sample_data();\r\n            }\r\n        },\r\n        error: function(r) {\r\n            console.log('\u26a0\ufe0f Using sample data due to error');\r\n            show_sample_data();\r\n        }\r\n    });\r\n}\r\n\r\nfunction show_sample_data() {\r\n    const sampleBatches = [\r\n        {\r\n            name: 'BATCH-001',\r\n            title: 'PRODUCCI\u00d3N PRINCIPAL',\r\n            wo_start_date: new Date().toISOString().split('T')[0]\r\n        },\r\n        {\r\n            name: 'BATCH-002', \r\n            title: 'CONTROL DE CALIDAD',\r\n            wo_start_date: new Date().toISOString().split('T')[0]\r\n        }\r\n    ];\r\n    \r\n    process_batch_data(sampleBatches);\r\n}",
+ "view": "Form"
+}

@@ -1,0 +1,21 @@
+{
+ "allow_guest": 0,
+ "api_method": "coa_amb_api_tds_parameters",
+ "creation": "2025-08-22 22:27:22.813718",
+ "disabled": 1,
+ "docstatus": 0,
+ "doctype": "Server Script",
+ "doctype_event": "Before Save",
+ "enable_rate_limit": 0,
+ "event_frequency": "All",
+ "idx": 0,
+ "modified": "2025-08-23 12:51:41.870255",
+ "modified_by": "Administrator",
+ "module": "RND",
+ "name": "coa_amb_load_tds_parameters",
+ "owner": "Administrator",
+ "rate_limit_count": 5,
+ "rate_limit_seconds": 86400,
+ "reference_doctype": "COA AMB2",
+ "script_type": "DocType Event"
+}

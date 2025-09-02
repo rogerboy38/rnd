@@ -1,0 +1,109 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "prompt",
+ "creation": "2025-07-28 23:02:58.007054",
+ "custom": 1,
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "production_plant_info_section",
+  "title",
+  "production_plant_name",
+  "production_plant_id"
+ ],
+ "fields": [
+  {
+   "fieldname": "production_plant_info_section",
+   "fieldtype": "Section Break",
+   "label": "Production Plant Info"
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Small Text",
+   "label": "Title",
+   "length": 20,
+   "options": "{production_plant_id}"
+  },
+  {
+   "fieldname": "production_plant_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Production Plant Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "production_plant_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Production Plant ID",
+   "reqd": 1,
+   "unique": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-07-29 07:36:32.158955",
+ "modified_by": "Administrator",
+ "module": "RND",
+ "name": "Production Plant AMB",
+ "naming_rule": "Set by user",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "RND Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System RND",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Manufacturing Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

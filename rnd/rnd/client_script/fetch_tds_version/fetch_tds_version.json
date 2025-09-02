@@ -1,0 +1,15 @@
+{
+ "creation": "2025-08-06 22:25:57.741342",
+ "docstatus": 0,
+ "doctype": "Client Script",
+ "dt": "TDS Product Specification",
+ "enabled": 0,
+ "idx": 0,
+ "modified": "2025-08-06 23:02:55.299866",
+ "modified_by": "Administrator",
+ "module": "RND",
+ "name": "Fetch TDS Version",
+ "owner": "Administrator",
+ "script": "frappe.ui.form.on('TDS Product Specification', {\r\n    refresh: function(frm) {\r\n        // Add button to fetch TDS version\r\n        frm.add_custom_button(__('Fetch TDS Version'), function() {\r\n            fetchFilteredTdsVersion(frm);\r\n        }).addClass('btn-primary');\r\n    }\r\n});\r\n\r\nfunction fetchFilteredTdsVersion(frm) {\r\n    // Validate we have an item code to filter by\r\n    if (!frm.doc.item_code) {\r\n        frappe.msgprint(__('Please select an Item Code first'));\r\n        return;\r\n    }\r\n\r\n    // Validate we have a TDS Settings link\r\n    if (!frm.doc.tds_settings) {\r\n        frappe.msgprint(__('Please select a TDS Settings document first'));\r\n        return;\r\n    }\r\n\r\n    frappe.call({\r\n        method: 'frappe.client.get_value',\r\n        args: {\r\n            doctype: 'TDS Settings',\r\n            filters: {\r\n                name: frm.doc.tds_settings,\r\n                item_code: frm.doc.item_code  // This ensures we only match the correct product\r\n            },\r\n            fieldname: ['tds_naming_series']\r\n        },\r\n        callback: function(r) {\r\n            if (r.message && r.message.tds_naming_series) {\r\n                frm.set_value('version', r.message.tds_naming_series);\r\n                frappe.show_alert(__('TDS Version fetched successfully'));\r\n            } else {\r\n                frappe.msgprint(__('No matching TDS Version found for this product'));\r\n            }\r\n        }\r\n    });\r\n}",
+ "view": "Form"
+}

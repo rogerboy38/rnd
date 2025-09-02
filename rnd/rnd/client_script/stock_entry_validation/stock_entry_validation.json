@@ -1,0 +1,15 @@
+{
+ "creation": "2025-08-19 08:59:50.341110",
+ "docstatus": 0,
+ "doctype": "Client Script",
+ "dt": "Stock Entry",
+ "enabled": 1,
+ "idx": 0,
+ "modified": "2025-08-19 11:49:56.731266",
+ "modified_by": "Administrator",
+ "module": "RND",
+ "name": "Stock Entry Validation",
+ "owner": "Administrator",
+ "script": "frappe.ui.form.on('Stock Entry', {\r\n    refresh: function(frm) {\r\n        // Your validation logic here - NO HTML\r\n        console.log('Stock Entry form refreshed');\r\n        \r\n        // Add your zone validation logic here\r\n        if (frm.doc.custom_zone_type) {\r\n            validateZoneRequirements(frm);\r\n        }\r\n    },\r\n    \r\n    custom_zone_type: function(frm) {\r\n        // Trigger validation when zone type changes\r\n        validateZoneRequirements(frm);\r\n    },\r\n    \r\n    validate: function(frm) {\r\n        // Final validation before saving\r\n        return validateZoneRequirements(frm, true);\r\n    }\r\n});\r\n\r\nfunction validateZoneRequirements(frm, isFinalValidation = false) {\r\n    if (!frm.doc.custom_zone_type) return true;\r\n    \r\n    const zoneType = frm.doc.custom_zone_type.trim();\r\n    \r\n    // Red Zone validation\r\n    if (zoneType === \"Red Zone\") {\r\n        if (!frm.doc.custom_supervisor_signature || !frm.doc.custom_operator_signature) {\r\n            if (isFinalValidation) {\r\n                frappe.throw(\"Red Zone operations require both supervisor and operator signatures\");\r\n            } else {\r\n                frappe.msgprint({\r\n                    title: __('Validation Warning'),\r\n                    message: __('Red Zone requires both signatures'),\r\n                    indicator: 'orange'\r\n                });\r\n            }\r\n            return false;\r\n        }\r\n    }\r\n    \r\n    // Movement type validation (warning only)\r\n    if (frm.doc.custom_movement_type) {\r\n        const movementType = frm.doc.custom_movement_type.toString().trim();\r\n        if ([\"261\", \"311\"].includes(movementType) && !frm.doc.custom_supervisor_signature) {\r\n            frappe.msgprint({\r\n                message: __('Supervisor signature recommended for movement type {0}', [movementType]),\r\n                indicator: 'orange',\r\n                alert: true\r\n            });\r\n        }\r\n    }\r\n    \r\n    return true;\r\n}",
+ "view": "Form"
+}

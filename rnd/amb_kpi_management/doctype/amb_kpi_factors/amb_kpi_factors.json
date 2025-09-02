@@ -1,0 +1,229 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:goal",
+ "creation": "2025-08-06 14:47:41.220895",
+ "custom": 1,
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "goal",
+  "frequency",
+  "threshold_warning",
+  "threshold_critical",
+  "visualization",
+  "cb_00",
+  "kpi_factor_procedure",
+  "year",
+  "method",
+  "kpi_factors_section",
+  "kpi_name",
+  "kpi_type",
+  "current_calculated_value",
+  "column_break_jxxo",
+  "base_value",
+  "target_value",
+  "values_currency",
+  "sb_01",
+  "kpi_factors",
+  "kpi_cost_breakdown"
+ ],
+ "fields": [
+  {
+   "fieldname": "goal",
+   "fieldtype": "Data",
+   "label": "AMB KPI GOAL FACTOR",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "default": "None",
+   "fieldname": "frequency",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Monitoring Frequency",
+   "options": "None\nDaily\nWeekly\nMonthly\nQuarterly\nYearly"
+  },
+  {
+   "default": "10",
+   "description": "Percentage %",
+   "fieldname": "threshold_warning",
+   "fieldtype": "Percent",
+   "label": "Threshold Warning"
+  },
+  {
+   "default": "20",
+   "description": "Percentage %",
+   "fieldname": "threshold_critical",
+   "fieldtype": "Percent",
+   "label": "Threshold Critical"
+  },
+  {
+   "default": "Bar",
+   "fieldname": "visualization",
+   "fieldtype": "Select",
+   "label": "Visualization",
+   "options": "Gauge\nBar\nLine"
+  },
+  {
+   "fieldname": "cb_00",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "kpi_factor_procedure",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "KPI FACTOR PROCEDURE",
+   "options": "Quality Procedure"
+  },
+  {
+   "fieldname": "year",
+   "fieldtype": "Select",
+   "label": "Year",
+   "options": "2020\n2021\n2022\n2023\n2024\n2025\n2026\n2027\n2028\n2029\n2030"
+  },
+  {
+   "fieldname": "method",
+   "fieldtype": "Select",
+   "label": "Method",
+   "options": "Manual\nAutomatc"
+  },
+  {
+   "fieldname": "kpi_factors_section",
+   "fieldtype": "Section Break",
+   "label": "KPI Factors"
+  },
+  {
+   "description": "Example: Water Cost per Ton",
+   "fieldname": "kpi_name",
+   "fieldtype": "Data",
+   "label": "KPI Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "kpi_type",
+   "fieldtype": "Select",
+   "label": "KPI Type",
+   "options": "Production\nQuality\nSales\nLogistics\nPacking\nMaintenance\nMO Liquid\nMO Mix\nMO Formulated\nCertifications\nLaboratory"
+  },
+  {
+   "description": "Calculated Read Only",
+   "fieldname": "current_calculated_value",
+   "fieldtype": "Currency",
+   "label": "Current Calculated Value",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "column_break_jxxo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Historical Reference",
+   "fieldname": "base_value",
+   "fieldtype": "Currency",
+   "label": "Base Value",
+   "non_negative": 1
+  },
+  {
+   "description": "Desired Benchmark",
+   "fieldname": "target_value",
+   "fieldtype": "Currency",
+   "label": "Target Value"
+  },
+  {
+   "fieldname": "values_currency",
+   "fieldtype": "Link",
+   "label": "Values Currency",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "sb_01",
+   "fieldtype": "Section Break",
+   "label": "KPI Objectives"
+  },
+  {
+   "columns": 10,
+   "fieldname": "kpi_factors",
+   "fieldtype": "Table",
+   "label": "KPI Factors",
+   "options": "AMB Cost Factors"
+  },
+  {
+   "fieldname": "kpi_cost_breakdown",
+   "fieldtype": "Table",
+   "label": "KPI Cost Breakdown",
+   "options": "KPI Cost Breakdown"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [
+  {
+   "group": "Review",
+   "link_doctype": "Quality Review",
+   "link_fieldname": "goal"
+  }
+ ],
+ "modified": "2025-08-07 12:15:53.690582",
+ "modified_by": "Administrator",
+ "module": "AMB KPI Management",
+ "name": "AMB KPI FACTORS",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Desk User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "RND Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System RND",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

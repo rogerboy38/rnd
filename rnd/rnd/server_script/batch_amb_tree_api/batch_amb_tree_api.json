@@ -1,0 +1,21 @@
+{
+ "allow_guest": 0,
+ "api_method": "add_batch_node",
+ "creation": "2025-08-20 22:37:32.023211",
+ "disabled": 1,
+ "docstatus": 0,
+ "doctype": "Server Script",
+ "doctype_event": "Before Insert",
+ "enable_rate_limit": 0,
+ "event_frequency": "All",
+ "idx": 0,
+ "modified": "2025-08-21 08:47:54.439150",
+ "modified_by": "Administrator",
+ "module": "RND",
+ "name": "Batch AMB Tree API",
+ "owner": "Administrator",
+ "rate_limit_count": 5,
+ "rate_limit_seconds": 86400,
+ "reference_doctype": "Batch AMB",
+ "script_type": "API"
+}

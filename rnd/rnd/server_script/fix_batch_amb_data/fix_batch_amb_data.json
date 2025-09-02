@@ -1,0 +1,21 @@
+{
+ "allow_guest": 0,
+ "api_method": "fix_batch_amb_data",
+ "creation": "2025-08-20 22:40:26.798924",
+ "disabled": 1,
+ "docstatus": 0,
+ "doctype": "Server Script",
+ "doctype_event": "Before Insert",
+ "enable_rate_limit": 0,
+ "event_frequency": "All",
+ "idx": 0,
+ "modified": "2025-08-21 08:47:48.599212",
+ "modified_by": "Administrator",
+ "module": "RND",
+ "name": "Fix Batch AMB Data",
+ "owner": "Administrator",
+ "rate_limit_count": 5,
+ "rate_limit_seconds": 86400,
+ "reference_doctype": "Batch AMB",
+ "script_type": "API"
+}

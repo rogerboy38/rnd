@@ -1,0 +1,15 @@
+{
+ "creation": "2025-08-30 20:28:38.237656",
+ "docstatus": 0,
+ "doctype": "Client Script",
+ "dt": "COA AMB",
+ "enabled": 1,
+ "idx": 0,
+ "modified": "2025-08-30 20:28:38.237656",
+ "modified_by": "fcrm@amb-wellness.com",
+ "module": "RND",
+ "name": "custom_naming_series_1",
+ "owner": "fcrm@amb-wellness.com",
+ "script": "frappe.ui.form.on('COA AMB', {\r\n    onload: function(frm) {\r\n        // Only set the value if the document is new and the field is empty\r\n        if (frm.is_new() && frm.doc.naming_series) {\r\n            frm.set_value('naming_series', '');\r\n        }\r\n    }\r\n});",
+ "view": "Form"
+}

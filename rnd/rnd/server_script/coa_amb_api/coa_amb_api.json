@@ -1,0 +1,20 @@
+{
+ "allow_guest": 0,
+ "api_method": "coa_amb_api",
+ "creation": "2025-08-23 00:10:27.451954",
+ "disabled": 1,
+ "docstatus": 0,
+ "doctype": "Server Script",
+ "doctype_event": "Before Insert",
+ "enable_rate_limit": 0,
+ "event_frequency": "All",
+ "idx": 0,
+ "modified": "2025-08-23 14:54:04.906865",
+ "modified_by": "Administrator",
+ "module": "RND",
+ "name": "coa_amb_api",
+ "owner": "Administrator",
+ "rate_limit_count": 5,
+ "rate_limit_seconds": 86400,
+ "script_type": "API"
+}

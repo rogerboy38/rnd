@@ -1,0 +1,15 @@
+{
+ "creation": "2025-08-04 19:49:14.410133",
+ "docstatus": 0,
+ "doctype": "Client Script",
+ "dt": "TDS Product Specification",
+ "enabled": 0,
+ "idx": 0,
+ "modified": "2025-08-04 19:49:27.190631",
+ "modified_by": "Administrator",
+ "module": "RND",
+ "name": "Get Product Code",
+ "owner": "Administrator",
+ "script": "frappe.ui.form.on('TDS Product Specification', {\r\n    item: function(frm) {\r\n        if (!frm.doc.item) {\r\n            frm.set_value('product_code', null);\r\n            return;\r\n        }\r\n        \r\n        frappe.call({\r\n            method: 'frappe.client.get_value',\r\n            args: {\r\n                'doctype': 'Item',\r\n                'filters': {'name': frm.doc.item},\r\n                'fieldname': ['product_code', 'item_code']  // Try multiple fields\r\n            },\r\n            callback: function(r) {\r\n                let product_code = r.message.product_code || \r\n                                  r.message.item_code || \r\n                                  frm.doc.item.substring(0,4);  // Fallback\r\n                frm.set_value('product_code', product_code);\r\n                \r\n                // If version depends on this, trigger update\r\n                if (frm.doc.custom_version) {\r\n                    frm.trigger('refresh');\r\n                }\r\n            }\r\n        });\r\n    }\r\n});",
+ "view": "Form"
+}
